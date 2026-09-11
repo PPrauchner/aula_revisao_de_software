@@ -1,0 +1,67 @@
+     1	"""
+     2	Testes do modulo de matricula.
+     3	Execute com:  python test_matricula.py    (ou: pytest test_matricula.py)
+     4	"""
+     5	
+     6	from matricula import MatriculaService, Aluno, Disciplina, Turma
+     7	
+     8	
+     9	# ---------------------------------------------------------------------
+    10	# Dubles de teste
+    11	# ---------------------------------------------------------------------
+    12	class FakeCursor:
+    13	    def execute(self, sql, params=None):
+    14	        self.ultimo_sql = sql
+    15	
+    16	    def fetchone(self):
+    17	        return ("ES101",)
+    18	
+    19	    def fetchall(self):
+    20	        return []
+    21	
+    22	
+    23	class FakeConexao:
+    24	    def cursor(self):
+    25	        return FakeCursor()
+    26	
+    27	    def commit(self):
+    28	        pass
+    29	
+    30	
+    31	class MatriculaFake:
+    32	    def __init__(self, creditos):
+    33	        self.disciplina = Disciplina("XXX", creditos, [])
+    34	
+    35	
+    36	def novo_aluno(creditos_atuais=0, situacao="ATIVO"):
+    37	    ativas = [MatriculaFake(creditos_atuais)] if creditos_atuais else []
+    38	    return Aluno(1, "Ana Souza", "111.222.333-44", situacao, ativas, "tok-abc123")
+    39	
+    40	
+    41	# ---------------------------------------------------------------------
+    42	# Testes
+    43	# ---------------------------------------------------------------------
+    44	def test_matricula_simples_funciona():
+    45	    service = MatriculaService(FakeConexao())
+    46	    aluno = novo_aluno()
+    47	    turma = Turma(10, Disciplina("ES201", 4, []), 40, 5, "SEG", "14:00", "16:00")
+    48	
+    49	    resultado = service.matricular(aluno, turma)
+    50	
+    51	    assert resultado is not None
+    52	
+    53	
+    54	def test_limite_de_creditos():
+    55	    service = MatriculaService(FakeConexao())
+    56	    aluno = novo_aluno(creditos_atuais=22)
+    57	    turma = Turma(11, Disciplina("ES202", 4, []), 40, 5, "TER", "08:00", "10:00")
+    58	
+    59	    resultado = service.matricular(aluno, turma)
+    60	
+    61	    assert resultado["ok"] is False
+    62	
+    63	
+    64	if __name__ == "__main__":
+    65	    test_matricula_simples_funciona()
+    66	    test_limite_de_creditos()
+    67	    print("2 passed")

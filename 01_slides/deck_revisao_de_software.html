@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Revisão de Software — conceitos, tipos e papéis</title>
+<style>
+/* ============================================================
+   Deck autocontido — sem CDN, sem assets externos, sem storage.
+   Paleta sóbria: tinta (navy) · acento (azul) · papel (off-white)
+   + vermelho/laranja/amarelo APENAS para severidade.
+   ============================================================ */
+:root{
+  --ink:#16233a;
+  --ink-soft:#4a5568;
+  --accent:#0b6e99;
+  --accent-soft:#e8f2f7;
+  --paper:#fbfaf7;
+  --rule:#d7d3ca;
+  --sev-alta:#c62828;
+  --sev-media:#e07a1f;
+  --sev-baixa:#cfa000;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;height:100%;background:#eceae4;overflow:hidden;
+  font-family:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;color:var(--ink)}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+body.notes-on #viewport{bottom:30vh}
+
+#stage{width:1280px;height:720px;background:var(--paper);position:relative;
+  box-shadow:0 2px 24px rgba(0,0,0,.18);transform-origin:center center;overflow:hidden}
+
+/* ---------- slide ---------- */
+.slide{position:absolute;inset:0;display:none;flex-direction:column;
+  padding:44px 64px 80px 64px}
+.slide.active{display:flex}
+.kicker{font-size:20px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);font-weight:700;margin-bottom:6px}
+h1{font-size:46px;line-height:1.1;margin:0 0 18px 0;font-weight:800;letter-spacing:-.01em}
+h1 .star{color:var(--accent)}
+.body{flex:1;min-height:0;overflow:hidden;font-size:calc(28px * var(--fs,1));line-height:1.4}
+.body p{margin:.55em 0}
+.body ul{margin:.4em 0;padding-left:1.1em}
+.body li{margin:.42em 0}
+.big{font-size:1.18em}
+.lead{font-size:1.12em}
+.small{font-size:.82em;color:var(--ink-soft)}
+strong{font-weight:800}
+em{font-style:italic}
+.hl{color:var(--accent);font-weight:800}
+.rule{height:5px;width:110px;background:var(--accent);border-radius:3px;margin:0 0 16px 0}
+
+/* ---------- slides-âncora (11, 17, 33, 36) ---------- */
+.slide.anchor{background:linear-gradient(180deg,#eef6fa 0%, #f8fcfd 62%, var(--paper) 100%);
+  border-left:16px solid var(--accent)}
+.slide.anchor h1{color:#08506f}
+.slide.anchor::after{content:"SLIDE-ÂNCORA";position:absolute;top:26px;right:28px;
+  font-size:15px;letter-spacing:.18em;font-weight:800;color:#fff;background:var(--accent);
+  padding:6px 12px;border-radius:4px}
+
+/* ---------- capa ---------- */
+.slide.cover{justify-content:center;background:linear-gradient(135deg,#12314a 0%,#16233a 100%);color:#fff}
+.slide.cover h1{font-size:78px;color:#fff;margin-bottom:10px}
+.slide.cover .sub{font-size:38px;font-style:italic;color:#bfe0ef}
+.slide.cover .meta{margin-top:54px;font-size:28px;color:#9db4c6}
+.slide.cover .rule{background:#4fb0d8;width:180px;margin-bottom:28px}
+
+/* ---------- blocos de destaque ---------- */
+.quote{border-left:10px solid var(--accent);background:#fff;padding:20px 26px;margin:.2em 0 .6em 0;
+  font-size:1.06em;box-shadow:0 1px 0 var(--rule)}
+.callout{background:var(--accent-soft);border:2px solid #bcd9e6;border-radius:8px;padding:16px 22px;margin:.5em 0}
+.punch{font-size:1.12em;font-weight:800;margin:.5em 0}
+.card{background:#fff;border:2px solid var(--rule);border-radius:10px;padding:22px 26px}
+.numbered{display:flex;gap:18px;align-items:flex-start;margin:.55em 0}
+.numbered .n{flex:0 0 auto;width:1.55em;height:1.55em;border-radius:50%;background:var(--accent);color:#fff;
+  font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.92em;margin-top:.12em}
+
+/* ---------- tabelas ---------- */
+.tablewrap{max-height:100%;overflow:hidden;border:2px solid var(--rule);border-radius:8px;background:#fff}
+table{border-collapse:collapse;width:100%;font-size:.92em}
+thead th{position:sticky;top:0;z-index:2;background:var(--ink);color:#fff;text-align:left;
+  padding:.5em .7em;font-weight:700;line-height:1.2}
+tbody td{padding:.46em .7em;border-top:1px solid var(--rule);vertical-align:top;line-height:1.3}
+tbody tr:nth-child(even){background:#f4f2ee}
+td.c,th.c{text-align:center}
+table.plain thead{display:none}
+table.plain td:first-child{width:26%;font-weight:700;white-space:nowrap}
+table.empty tbody td{height:2.1em}
+.sev{font-weight:800;white-space:nowrap}
+.sev-alta{color:var(--sev-alta)}
+.sev-media{color:var(--sev-media)}
+.sev-baixa{color:var(--sev-baixa)}
+.dot{display:inline-block;width:.72em;height:.72em;border-radius:50%;margin-right:.3em;vertical-align:-.03em}
+.dot-alta{background:var(--sev-alta)}
+.dot-media{background:var(--sev-media)}
+.dot-baixa{background:var(--sev-baixa)}
+
+/* ---------- cartão do PR (slide 2) ---------- */
+.pr{background:#fff;border:2px solid var(--rule);border-radius:10px;overflow:hidden;font-size:.94em}
+.pr .head{background:#f1efe9;padding:14px 22px;border-bottom:2px solid var(--rule);
+  font-family:"Consolas","SF Mono",monospace;font-weight:700}
+.pr .row{padding:10px 22px;font-family:"Consolas","SF Mono",monospace;color:var(--ink-soft)}
+.pr .ok{color:#1d7a37;font-weight:700}
+.pr .msg{padding:18px 22px;border-top:2px dashed var(--rule);font-style:italic;font-size:1.02em}
+
+/* ---------- barras da curva de custo (slide 6) ---------- */
+.bars{margin-top:.2em}
+.bar{display:flex;align-items:center;gap:16px;margin:.42em 0}
+.bar .lbl{flex:0 0 auto;width:6.6em;font-weight:700;text-align:right}
+.bar .track{flex:1;height:1.5em;background:#eeece6;border-radius:4px;overflow:hidden}
+.bar .fill{height:100%;border-radius:4px}
+.bar .val{flex:0 0 auto;width:4.6em;font-weight:800}
+
+/* ---------- comparativo bom/ruim ---------- */
+.pros td:first-child,.pros th:first-child{width:11em;white-space:nowrap;font-weight:700}
+
+/* ---------- rodapé ---------- */
+#footer{position:absolute;left:0;right:0;bottom:0;height:56px;display:flex;align-items:center;
+  gap:22px;padding:0 30px;border-top:2px solid var(--rule);background:rgba(251,250,247,.92);
+  font-size:19px;color:var(--ink-soft)}
+#footer .title{flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+#counter{font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
+#clock{font-weight:800;font-variant-numeric:tabular-nums;display:none}
+#clock.on{display:block}
+#timerbar{display:none;position:absolute;left:0;right:0;bottom:56px;height:16px;background:#e9e6df}
+#timerbar.on{display:block}
+#timerfill{height:100%;background:var(--accent);width:0}
+#timerbar .tick{position:absolute;top:0;bottom:0;width:3px;background:var(--ink)}
+#timerbar .tick span{position:absolute;bottom:18px;left:-2.6em;width:6em;text-align:center;
+  font-size:14px;font-weight:800;color:var(--ink)}
+body.t-40 #timerfill{background:var(--sev-baixa)}
+body.t-70 #timerfill{background:var(--sev-media)}
+body.t-85 #timerfill{background:var(--sev-alta)}
+
+/* ---------- notas do apresentador ---------- */
+#notes{position:fixed;left:0;right:0;bottom:0;height:30vh;background:#16233a;color:#eef3f7;
+  padding:18px 28px;overflow:auto;display:none;border-top:5px solid var(--accent)}
+body.notes-on #notes{display:block}
+#notes h3{margin:0 0 8px 0;font-size:15px;letter-spacing:.16em;text-transform:uppercase;color:#7fc4e3}
+#notes .n-body{font-size:20px;line-height:1.45}
+#notes .n-body strong{color:#ffd980}
+#notes .n-body em{color:#bfe0ef}
+#notes code{background:#24354f;padding:.1em .3em;border-radius:3px}
+
+/* ---------- grade (G) ---------- */
+#grid{position:fixed;inset:0;background:rgba(251,250,247,.985);display:none;padding:28px 34px;overflow:auto;z-index:50}
+#grid.on{display:block}
+#grid h2{margin:0 0 14px 0;font-size:26px}
+#grid .cells{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+#grid .cell{border:2px solid var(--rule);border-radius:8px;background:#fff;padding:12px 14px;cursor:pointer;
+  font-size:17px;line-height:1.25}
+#grid .cell:hover{border-color:var(--accent);background:var(--accent-soft)}
+#grid .cell .num{font-weight:800;color:var(--accent);display:block;font-size:15px;margin-bottom:4px}
+#grid .cell.anchor-cell{border-color:var(--accent);background:var(--accent-soft)}
+#grid .cell.current{outline:4px solid var(--ink)}
+
+/* ---------- ajuda (?) ---------- */
+#help{position:fixed;right:18px;bottom:18px;background:#16233a;color:#fff;border-radius:8px;
+  padding:14px 18px;font-size:16px;line-height:1.6;display:none;z-index:60}
+#help.on{display:block}
+#help b{color:#ffd980}
+
+/* ---------- slide 34 — cartaz do QR ---------- */
+.poster{padding:34px 56px 80px 56px}
+.poster .qrgrid{display:flex;gap:40px;height:100%}
+.poster .left{flex:1.15;min-width:0;font-size:.95em}
+.poster .right{flex:0 0 470px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start}
+.qrbox{background:#fff;border:5px solid var(--ink);padding:14px;border-radius:8px}
+.qrbox svg{display:block;width:330px;height:330px;shape-rendering:crispEdges}
+.qrurl{margin-top:14px;font-family:"Consolas","SF Mono",monospace;font-size:23px;font-weight:800;
+  text-align:center;line-height:1.3;word-break:break-all;max-width:460px}
+.qrcap{font-size:20px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.poster ol{margin:.3em 0;padding-left:1.3em}
+.poster ol li{margin:.35em 0}
+</style>
+</head>
+<body>
+
+<div id="viewport">
+<div id="stage">
+
+<!-- ===================== 1 ===================== -->
+<section class="slide cover" data-title="Capa">
+  <div class="rule"></div>
+  <h1>Revisão de Software</h1>
+  <div class="sub">conceitos, tipos e papéis</div>
+  <div class="meta">Disciplina · Squad [nomes dos 6] · [data]</div>
+  <div class="notes" hidden>Não gaste mais de 15 segundos aqui. A aula começa no slide 2.</div>
+</section>
+
+<!-- ===================== 2 ===================== -->
+<section class="slide" data-title="O Pull Request #142">
+  <div class="kicker">Bloco 1 · Abertura</div>
+  <h1>O Pull Request #142</h1>
+  <div class="body">
+    <div class="pr">
+      <div class="head">PR #142 · feat(matricula): implementa RF-014</div>
+      <div class="row">Autor: @dev.junior</div>
+      <div class="row">Pipeline: <span class="ok">✅ verde</span> &nbsp;&nbsp;&nbsp; Testes: <span class="ok">✅ 2/2 passando</span></div>
+      <div class="msg">“Implementei o RF-014 conforme combinado na daily.<br>
+        Testes passando localmente (2/2 verdes).<br>
+        Acho que dá pra fazer o merge hoje.”</div>
+    </div>
+    <p class="punch" style="font-size:1.6em;text-align:center;margin-top:.5em">Mergeia?</p>
+  </div>
+  <div class="notes" hidden>Pergunte de verdade e espere resposta. Alguém vai dizer que sim, ou que "olharia rápido". Aceite a resposta sem corrigir. Diga: <em>"guarda essa resposta. Daqui a 40 minutos vocês vão revisar esse PR. Ele tem 12 defeitos plantados — e nenhum grupo aqui vai achar os 12."</em></div>
+</section>
+
+<!-- ===================== 3 ===================== -->
+<section class="slide" data-title="O que vai acontecer hoje">
+  <div class="kicker">Bloco 1 · Abertura</div>
+  <h1>O que vai acontecer hoje</h1>
+  <div class="body">
+    <div class="tablewrap">
+      <table class="plain">
+        <thead><tr><th>Tempo</th><th>Etapa</th></tr></thead>
+        <tbody>
+          <tr><td><strong>40 min</strong></td><td>Conceitos, tipos e papéis</td></tr>
+          <tr><td><strong>30 min</strong></td><td>Vocês revisam o PR #142 — cada grupo com um <strong>método diferente</strong></td></tr>
+          <tr><td><strong>15 min</strong></td><td>Comparamos os resultados no quadro</td></tr>
+          <tr><td><strong>5 min</strong></td><td>O que isso significa</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="callout"><strong>Promessa da aula:</strong> ao final, vocês vão saber não só <em>o que é</em> revisão de software, mas <strong>qual tipo escolher, quando, e o que cada um deixa passar.</strong></p>
+  </div>
+  <div class="notes" hidden>Deixe claro que a atividade é o centro da aula e que a ata preenchida é entregue.</div>
+</section>
+
+<!-- ===================== 4 ===================== -->
+<section class="slide" data-title="Onde revisão se encaixa">
+  <div class="kicker">Bloco 1 · Abertura</div>
+  <h1>Onde revisão se encaixa</h1>
+  <div class="body">
+    <svg viewBox="0 0 1160 372" style="width:100%;height:auto;max-height:64%" role="img"
+         aria-label="Árvore: Verificação e Validação divide-se em Análise Estática (revisão humana e ferramentas) e Análise Dinâmica (testes).">
+      <g fill="none" stroke="#16233a" stroke-width="3">
+        <path d="M580 78 L580 108 M290 108 L870 108 M290 108 L290 130 M870 108 L870 130"/>
+        <path d="M290 210 L290 236 M160 236 L420 236 M160 236 L160 258 M420 236 L420 258"/>
+        <path d="M870 210 L870 236 M740 236 L1000 236 M740 236 L740 258 M1000 236 L1000 258"/>
+      </g>
+      <g font-family="Segoe UI,system-ui,sans-serif" text-anchor="middle">
+        <rect x="370" y="14" width="420" height="64" rx="8" fill="#16233a"/>
+        <text x="580" y="54" font-size="27" font-weight="800" fill="#fff">VERIFICAÇÃO &amp; VALIDAÇÃO</text>
+
+        <rect x="175" y="130" width="230" height="80" rx="8" fill="#fff" stroke="#16233a" stroke-width="3"/>
+        <text x="290" y="162" font-size="23" font-weight="800" fill="#16233a">ANÁLISE ESTÁTICA</text>
+        <text x="290" y="190" font-size="19" fill="#4a5568">(não executa o código)</text>
+
+        <rect x="755" y="130" width="230" height="80" rx="8" fill="#fff" stroke="#16233a" stroke-width="3"/>
+        <text x="870" y="162" font-size="23" font-weight="800" fill="#16233a">ANÁLISE DINÂMICA</text>
+        <text x="870" y="190" font-size="19" fill="#4a5568">(executa o código)</text>
+
+        <rect x="45" y="258" width="230" height="94" rx="8" fill="#0b6e99" stroke="#0b6e99" stroke-width="3"/>
+        <text x="160" y="296" font-size="26" font-weight="800" fill="#fff">REVISÃO</text>
+        <text x="160" y="324" font-size="20" fill="#d6ecf5">(humana)</text>
+
+        <rect x="305" y="258" width="230" height="94" rx="8" fill="#fff" stroke="#16233a" stroke-width="3"/>
+        <text x="420" y="286" font-size="19" font-weight="700" fill="#16233a">Ferramentas de</text>
+        <text x="420" y="309" font-size="19" font-weight="700" fill="#16233a">análise estática</text>
+        <text x="420" y="333" font-size="18" fill="#4a5568">(linter, SAST)</text>
+
+        <rect x="625" y="258" width="230" height="94" rx="8" fill="#fff" stroke="#16233a" stroke-width="3"/>
+        <text x="740" y="296" font-size="21" font-weight="700" fill="#16233a">Testes</text>
+        <text x="740" y="324" font-size="19" fill="#4a5568">(unit/integr.)</text>
+
+        <rect x="885" y="258" width="230" height="94" rx="8" fill="#fff" stroke="#16233a" stroke-width="3"/>
+        <text x="1000" y="296" font-size="21" font-weight="700" fill="#16233a">Testes de</text>
+        <text x="1000" y="324" font-size="21" font-weight="700" fill="#16233a">desempenho</text>
+      </g>
+    </svg>
+    <p class="punch" style="margin-top:.35em">Revisão = verificação estática conduzida por pessoas.</p>
+    <p>Aplica-se a <strong>qualquer artefato</strong>: requisito, arquitetura, código, teste, manual, contrato.</p>
+  </div>
+  <div class="notes" hidden>Conecte com a aula anterior de conceitos de V&amp;V. Enfatize: revisão não é só de código. O artefato mais lucrativo de revisar é o <strong>requisito</strong>, porque é onde o defeito é mais barato de corrigir.</div>
+</section>
+
+<!-- ===================== 5 ===================== -->
+<section class="slide" data-title="Definição">
+  <div class="kicker">Bloco 2 · Por que revisar</div>
+  <h1>Definição</h1>
+  <div class="body">
+    <div class="quote">
+      <strong>Revisão de software</strong> é o exame de um artefato de software por pessoas, com o objetivo de <strong>detectar defeitos</strong>, avaliar conformidade com padrões e especificações, e recomendar melhorias.
+      <div class="small" style="margin-top:.5em">— em linha com a <strong>ISO/IEC/IEEE 12207</strong> e a <strong>IEEE Std 1028</strong> (<em>Standard for Software Reviews and Audits</em>)</div>
+    </div>
+    <p class="punch">Três palavras que definem o resto da aula:</p>
+    <ul class="big">
+      <li><strong>Detectar</strong>, não corrigir</li>
+      <li><strong>Artefato</strong>, não pessoa</li>
+      <li><strong>Sistemática</strong>, não “dar uma olhada”</li>
+    </ul>
+  </div>
+  <div class="notes" hidden>Essas três palavras voltam nas regras de ouro (slide 23) e nas regras da atividade.</div>
+</section>
+
+<!-- ===================== 6 ===================== -->
+<section class="slide" data-title="O defeito fica mais caro a cada fase">
+  <div class="kicker">Bloco 2 · Por que revisar</div>
+  <h1>O defeito fica mais caro a cada fase</h1>
+  <div class="body">
+    <p class="small" style="margin-top:0">Custo relativo de corrigir o MESMO defeito<br>(ordem de grandeza — Boehm e trabalhos posteriores)</p>
+    <div class="bars">
+      <div class="bar"><div class="lbl">Requisitos</div><div class="track"><div class="fill" style="width:1.5%;background:#0b6e99"></div></div><div class="val">1×</div></div>
+      <div class="bar"><div class="lbl">Projeto</div><div class="track"><div class="fill" style="width:6%;background:#2f8bb0"></div></div><div class="val">3–6×</div></div>
+      <div class="bar"><div class="lbl">Codificação</div><div class="track"><div class="fill" style="width:12%;background:#cfa000"></div></div><div class="val">10×</div></div>
+      <div class="bar"><div class="lbl">Teste</div><div class="track"><div class="fill" style="width:38%;background:#e07a1f"></div></div><div class="val">15–40×</div></div>
+      <div class="bar"><div class="lbl">Produção</div><div class="track"><div class="fill" style="width:100%;background:#c62828"></div></div><div class="val">40–100×+</div></div>
+    </div>
+    <p class="callout"><strong>Revisão é a técnica que age nas duas primeiras colunas</strong> — antes de existir código para testar.</p>
+  </div>
+  <div class="notes" hidden>Seja honesto: esses números variam muito entre estudos e contextos. O que é robusto é a <strong>forma da curva</strong>, não o valor exato. O ponto: quanto mais cedo, mais barato.</div>
+</section>
+
+<!-- ===================== 7 ===================== -->
+<section class="slide" data-title="O que revisão pega que teste não pega">
+  <div class="kicker">Bloco 2 · Por que revisar</div>
+  <h1>O que revisão pega que teste não pega</h1>
+  <div class="body">
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Defeito</th><th class="c">Teste pega?</th><th class="c">Revisão pega?</th></tr></thead>
+        <tbody>
+          <tr><td>Regra do requisito <strong>não implementada</strong></td><td class="c">❌</td><td class="c">✅</td></tr>
+          <tr><td>Constante com valor <strong>revogado</strong> pelo cliente</td><td class="c">❌</td><td class="c">✅</td></tr>
+          <tr><td>Código correto mas <strong>ilegível / não manutenível</strong></td><td class="c">❌</td><td class="c">✅</td></tr>
+          <tr><td>Requisito <strong>ambíguo ou não verificável</strong></td><td class="c">❌</td><td class="c">✅</td></tr>
+          <tr><td>Teste que <strong>não testa nada</strong></td><td class="c">❌</td><td class="c">✅</td></tr>
+          <tr><td>Falha de comportamento em tempo de execução</td><td class="c">✅</td><td class="c">🔸</td></tr>
+          <tr><td>Vazamento de memória, lentidão sob carga</td><td class="c">✅</td><td class="c">❌</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="punch">Teste só encontra o que você lembrou de testar. Revisão encontra o que você esqueceu.</p>
+  </div>
+  <div class="notes" hidden>A linha "teste que não testa nada" é a que vai bater na atividade. Marque-a.</div>
+</section>
+
+<!-- ===================== 8 ===================== -->
+<section class="slide" data-title="Eficácia de remoção de defeitos">
+  <div class="kicker">Bloco 2 · Por que revisar</div>
+  <h1>Eficácia de remoção de defeitos</h1>
+  <div class="body">
+    <p>Nenhuma técnica isolada chega perto de 100%. Ordens de grandeza consolidadas na literatura (Fagan/IBM, Capers Jones e replicações posteriores):</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Técnica</th><th>Faixa típica de remoção</th></tr></thead>
+        <tbody>
+          <tr><td>Teste unitário</td><td>~30 – 35%</td></tr>
+          <tr><td>Teste de integração / sistema</td><td>~35 – 50%</td></tr>
+          <tr><td>Revisão informal</td><td>~25 – 40%</td></tr>
+          <tr><td><strong>Inspeção formal</strong></td><td><strong>~60 – 90%</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="punch"><strong>Só a combinação passa de 95%.</strong> É por isso que a pergunta certa nunca é “revisão <strong>ou</strong> teste”.</p>
+  </div>
+  <div class="notes" hidden>Se alguém questionar os números, é justo: variam por domínio e por estudo. O ponto defensável é a ordem: inspeção formal &gt; revisão informal ≈ teste unitário isolado, e nenhuma sozinha é suficiente.</div>
+</section>
+
+<!-- ===================== 9 ===================== -->
+<section class="slide" data-title="Os benefícios que ninguém mede">
+  <div class="kicker">Bloco 2 · Por que revisar</div>
+  <h1>Os benefícios que ninguém mede</h1>
+  <div class="body">
+    <p>Além de achar defeito, revisão produz:</p>
+    <ul>
+      <li><strong>Transferência de conhecimento</strong> — o código deixa de ter um único dono</li>
+      <li><strong>Padronização</strong> — a equipe converge sem precisar de documento de padrão</li>
+      <li><strong>Propriedade coletiva</strong> — “esse código é da equipe”, não “do fulano”</li>
+      <li><strong>Formação</strong> — é onde o júnior aprende mais rápido</li>
+      <li><strong>Rastro de auditoria</strong> — a ata é evidência para certificação e para postmortem</li>
+    </ul>
+    <p class="callout punch">E a pergunta da abertura: o pipeline estava <strong>verde</strong>. O verde prova o quê?</p>
+  </div>
+  <div class="notes" hidden>Feche seu bloco exatamente nessa pergunta e passe para o A3.</div>
+</section>
+
+<!-- ===================== 10 ===================== -->
+<section class="slide" data-title="Três eixos para classificar">
+  <div class="kicker">Bloco 3 · Tipos de revisão</div>
+  <h1>Três eixos para classificar</h1>
+  <div class="body">
+    <p>Antes de decorar nomes, entenda que “tipo de revisão” varia em <strong>três dimensões independentes</strong>:</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Eixo</th><th>Extremos</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Formalidade</strong></td><td>ad hoc ⟷ processo definido com fases, critérios e métricas</td></tr>
+          <tr><td><strong>Sincronia</strong></td><td>reunião presencial ⟷ assíncrona por ferramenta (Pull Request)</td></tr>
+          <tr><td><strong>Quem conduz</strong></td><td>o autor apresenta ⟷ um moderador neutro conduz</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="callout">Um code review de PR no GitHub é: <strong>formalidade média · assíncrono · conduzido pelo revisor</strong>.</p>
+  </div>
+  <div class="notes" hidden>Esse slide evita a confusão clássica de tratar "code review" e "inspeção" como sinônimos ou como opostos. Eles são pontos diferentes em eixos diferentes.</div>
+</section>
+
+<!-- ===================== 11 — ÂNCORA ===================== -->
+<section class="slide anchor" data-title="⭐ O espectro da formalidade" data-anchor="1">
+  <div class="kicker">Bloco 3 · Tipos de revisão</div>
+  <h1><span class="star">⭐</span> O espectro da formalidade</h1>
+  <div class="body">
+    <svg viewBox="0 0 1200 430" style="width:100%;height:auto;max-height:100%" role="img"
+         aria-label="Espectro da formalidade, do menos formal (revisão informal) ao mais formal (auditoria).">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#16233a"/>
+        </marker>
+      </defs>
+      <g font-family="Segoe UI,system-ui,sans-serif">
+        <text x="30" y="28" font-size="23" font-weight="800" fill="#0b6e99">MENOS FORMAL</text>
+        <text x="30" y="54" font-size="20" fill="#4a5568">menor custo</text>
+        <text x="30" y="78" font-size="20" fill="#4a5568">menor eficácia</text>
+        <text x="1170" y="28" font-size="23" font-weight="800" fill="#c62828" text-anchor="end">MAIS FORMAL</text>
+        <text x="1170" y="54" font-size="20" fill="#4a5568" text-anchor="end">maior custo</text>
+        <text x="1170" y="78" font-size="20" fill="#4a5568" text-anchor="end">maior eficácia</text>
+
+        <line x1="30" y1="108" x2="1168" y2="108" stroke="#16233a" stroke-width="5" marker-end="url(#arrow)"/>
+        <g stroke="#16233a" stroke-width="3">
+          <path d="M100 100 L100 122 M300 100 L300 122 M500 100 L500 122 M700 100 L700 122 M900 100 L900 122 M1100 100 L1100 122"/>
+        </g>
+
+        <g text-anchor="middle" font-size="22" font-weight="800" fill="#16233a">
+          <text x="100" y="156">Revisão</text><text x="100" y="182">informal</text><text x="100" y="208" font-size="19" font-weight="600" fill="#4a5568">(ad hoc)</text>
+          <text x="300" y="156">Pair review /</text><text x="300" y="182">over-the-</text><text x="300" y="208">shoulder</text>
+          <text x="500" y="156">Walkthrough</text>
+          <text x="700" y="156">Revisão</text><text x="700" y="182">técnica</text>
+          <text x="900" y="156">Inspeção</text><text x="900" y="182">formal</text><text x="900" y="208" font-size="19" font-weight="600" fill="#4a5568">(Fagan)</text>
+          <text x="1100" y="156">Auditoria</text>
+        </g>
+
+        <line x1="30" y1="240" x2="1168" y2="240" stroke="#d7d3ca" stroke-width="3"/>
+
+        <g text-anchor="middle" font-size="21" fill="#16233a">
+          <text x="100" y="278">minutos</text><text x="300" y="278">minutos</text><text x="500" y="278">~1 hora</text>
+          <text x="700" y="278">1–2 horas</text><text x="900" y="278">horas</text><text x="1100" y="278">dias</text>
+
+          <text x="100" y="316">1 pessoa</text><text x="300" y="316">2 pessoas</text><text x="500" y="316">grupo</text>
+          <text x="700" y="316">grupo</text><text x="900" y="316">grupo</text><text x="1100" y="316">externo</text>
+        </g>
+        <g text-anchor="middle" font-size="20" fill="#4a5568">
+          <text x="500" y="356">autor conduz</text><text x="700" y="356">moderador</text>
+          <text x="900" y="356">moderador</text><text x="900" y="382">+ métricas</text>
+          <text x="1100" y="356">auditor</text><text x="1100" y="382">+ conformidade</text>
+        </g>
+      </g>
+    </svg>
+  </div>
+  <div class="notes" hidden><strong>Slide-âncora.</strong> Volte a ele no slide 17 e no fecho. Diga: "vocês vão aplicar cinco pontos diferentes desse espectro daqui a pouco, na mesma sala, no mesmo código."</div>
+</section>
+
+<!-- ===================== 12 ===================== -->
+<section class="slide" data-title="Revisão informal (ad hoc)">
+  <div class="kicker">Bloco 3 · Tipos de revisão</div>
+  <h1>Revisão informal (<em>ad hoc</em>)</h1>
+  <div class="body">
+    <p><strong>O que é:</strong> alguém pede a outra pessoa para olhar. Sem processo, sem registro.</p>
+    <div class="tablewrap">
+      <table class="plain pros">
+        <thead><tr><th>Aspecto</th><th>Descrição</th></tr></thead>
+        <tbody>
+          <tr><td>✅ <strong>A favor</strong></td><td>Custo quase zero, imediata, sem burocracia</td></tr>
+          <tr><td>❌ <strong>Contra</strong></td><td>Sem registro, sem cobertura garantida, depende inteiramente de quem revisa</td></tr>
+          <tr><td>🎯 <strong>Quando usar</strong></td><td>Mudança pequena, baixo risco, artefato descartável</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="quote">É o que <strong>a maioria das equipes realmente faz</strong> — e é o nosso grupo de controle na atividade.</div>
+  </div>
+  <div class="notes" hidden></div>
+</section>
+
+<!-- ===================== 13 ===================== -->
+<section class="slide" data-title="Pair review / over-the-shoulder">
+  <div class="kicker">Bloco 3 · Tipos de revisão</div>
+  <h1>Pair review / <em>over-the-shoulder</em></h1>
+  <div class="body">
+    <p><strong>O que é:</strong> duas pessoas, uma tela. Uma conduz, a outra questiona em tempo real. Programação em par é o caso extremo: revisão contínua durante a escrita.</p>
+    <div class="tablewrap">
+      <table class="plain pros">
+        <thead><tr><th>Aspecto</th><th>Descrição</th></tr></thead>
+        <tbody>
+          <tr><td>✅ <strong>A favor</strong></td><td>Feedback imediato, ótimo para transferir conhecimento, zero atraso</td></tr>
+          <tr><td>❌ <strong>Contra</strong></td><td>Custa duas pessoas ao mesmo tempo; sem registro; a fadiga chega rápido</td></tr>
+          <tr><td>🎯 <strong>Quando usar</strong></td><td>Onboarding, código difícil, decisão de projeto em aberto</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="notes" hidden></div>
+</section>
+
+<!-- ===================== 14 ===================== -->
+<section class="slide" data-title="Walkthrough">
+  <div class="kicker">Bloco 3 · Tipos de revisão</div>
+  <h1>Walkthrough</h1>
+  <div class="body">
+    <p><strong>O que é:</strong> o <strong>autor</strong> conduz um grupo pelo artefato, explicando o raciocínio. Objetivo primário é <strong>entendimento compartilhado</strong>; detectar defeito é consequência.</p>
+    <div class="tablewrap">
+      <table class="plain pros">
+        <thead><tr><th>Aspecto</th><th>Descrição</th></tr></thead>
+        <tbody>
+          <tr><td>✅ <strong>A favor</strong></td><td>Excelente para alinhar entendimento e formar equipe; baixa cerimônia</td></tr>
+          <tr><td>❌ <strong>Contra</strong></td><td>O autor conduz — logo, ele guia a atenção para onde <strong>ele</strong> acha importante</td></tr>
+          <tr><td>🎯 <strong>Quando usar</strong></td><td>Artefato novo, arquitetura, decisão que a equipe precisa comprar</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="notes" hidden>O viés do autor é o ponto central. Ele não esconde defeito de má-fé: ele simplesmente não olha para onde não desconfia. O grupo G2 vai sentir isso na pele.</div>
+</section>
+
+<!-- ===================== 15 ===================== -->
+<section class="slide" data-title="Revisão técnica">
+  <div class="kicker">Bloco 3 · Tipos de revisão</div>
+  <h1>Revisão técnica</h1>
+  <div class="body">
+    <p><strong>O que é:</strong> grupo qualificado avalia o artefato quanto à <strong>conformidade com especificações e padrões</strong>, conduzido por um <strong>moderador</strong> (não pelo autor), com checklist e registro.</p>
+    <div class="tablewrap">
+      <table class="plain pros">
+        <thead><tr><th>Aspecto</th><th>Descrição</th></tr></thead>
+        <tbody>
+          <tr><td>✅ <strong>A favor</strong></td><td>Cobertura sistemática, achados registrados, independente do autor</td></tr>
+          <tr><td>❌ <strong>Contra</strong></td><td>Exige preparação individual e agenda de várias pessoas</td></tr>
+          <tr><td>🎯 <strong>Quando usar</strong></td><td>Código que vai para produção, artefato com requisito associado</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="quote"><strong>É o padrão do que se chama de “code review sério” na indústria.</strong></div>
+  </div>
+  <div class="notes" hidden></div>
+</section>
+
+<!-- ===================== 16 ===================== -->
+<section class="slide" data-title="Inspeção formal (Fagan)">
+  <div class="kicker">Bloco 3 · Tipos de revisão</div>
+  <h1>Inspeção formal (Fagan)</h1>
+  <div class="body">
+    <p><strong>O que é:</strong> processo definido, com <strong>fases</strong> (planejamento, visão geral, preparação, reunião, retrabalho, acompanhamento), <strong>critérios de entrada e saída</strong>, papéis formais e <strong>métricas coletadas</strong> (defeitos por hora, por KLOC, taxa de retrabalho).</p>
+    <div class="tablewrap">
+      <table class="plain pros">
+        <thead><tr><th>Aspecto</th><th>Descrição</th></tr></thead>
+        <tbody>
+          <tr><td>✅ <strong>A favor</strong></td><td>A maior eficácia de remoção conhecida; gera dado para melhorar o processo</td></tr>
+          <tr><td>❌ <strong>Contra</strong></td><td>Cara. Horas de várias pessoas para poucas centenas de linhas</td></tr>
+          <tr><td>🎯 <strong>Quando usar</strong></td><td>Software crítico, artefato caro de errar, contexto certificado</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="callout punch">➡️ A próxima squad passa uma aula inteira só neste quadradinho.</p>
+  </div>
+  <div class="notes" hidden><strong>Não detalhe as fases.</strong> Uma frase por fase no máximo. Esse slide é gancho, não conteúdo — a próxima aula é sobre isso.</div>
+</section>
+
+<!-- ===================== 17 — ÂNCORA ===================== -->
+<section class="slide anchor" data-title="⭐ Comparação e os 5 tipos da IEEE 1028" data-anchor="1">
+  <div class="kicker">Bloco 3 · Tipos de revisão</div>
+  <h1><span class="star">⭐</span> Comparação e os 5 tipos da IEEE 1028</h1>
+  <div class="body">
+    <p>A <strong>IEEE Std 1028</strong> define formalmente <strong>cinco</strong> tipos de revisão:</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Tipo (IEEE 1028)</th><th>Quem conduz</th><th>Objetivo principal</th><th>Registro</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Revisão gerencial</strong></td><td>gestão</td><td>avaliar progresso e adequação de plano</td><td>sim</td></tr>
+          <tr><td><strong>Revisão técnica</strong></td><td>moderador</td><td>conformidade com especificação e padrão</td><td>sim</td></tr>
+          <tr><td><strong>Inspeção</strong></td><td>moderador treinado</td><td><strong>detectar defeitos</strong> com processo e métrica</td><td>sim, formal</td></tr>
+          <tr><td><strong>Walkthrough</strong></td><td>o autor</td><td>entendimento, formação, achados secundários</td><td>opcional</td></tr>
+          <tr><td><strong>Auditoria</strong></td><td>auditor <strong>externo</strong></td><td>conformidade com regulamento/contrato</td><td>sim, formal</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="notes" hidden>Chame atenção para dois pontos: (1) <strong>revisão gerencial não busca defeito</strong> — busca avaliar plano; (2) <strong>auditoria é externa</strong> e não é feita pela equipe. Pergunta rápida para a turma: <em>"code review de Pull Request é qual desses cinco?"</em> Resposta honesta: normalmente é revisão técnica com formalidade reduzida — a norma é de 2008 e a indústria criou uma variante assíncrona baseada em ferramenta.</div>
+</section>
+
+<!-- ===================== 18 ===================== -->
+<section class="slide" data-title="Por que papéis, e não “todo mundo olha”">
+  <div class="kicker">Bloco 4 · Papéis</div>
+  <h1>Por que papéis, e não “todo mundo olha”</h1>
+  <div class="body">
+    <p>Sem papéis definidos acontece o previsível:</p>
+    <ul>
+      <li><strong>Difusão de responsabilidade</strong> — todos assumem que outro vai olhar aquela parte</li>
+      <li><strong>Sobreposição</strong> — três pessoas revisam o mesmo trecho e ninguém revisa o resto</li>
+      <li><strong>Deriva</strong> — a reunião vira discussão de solução e ninguém registra defeito</li>
+      <li><strong>Silêncio hierárquico</strong> — ninguém contradiz o sênior</li>
+    </ul>
+    <p class="callout punch">Papel é o mecanismo que transforma um grupo de pessoas olhando em um processo de detecção.</p>
+  </div>
+  <div class="notes" hidden></div>
+</section>
+
+<!-- ===================== 19 ===================== -->
+<section class="slide" data-title="Os papéis">
+  <div class="kicker">Bloco 4 · Papéis</div>
+  <h1>Os papéis</h1>
+  <div class="body">
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Papel</th><th>Faz</th><th>Não faz</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Moderador / Líder</strong></td><td>conduz, controla tempo, garante o processo, media conflito</td><td>não revisa, não decide o mérito técnico</td></tr>
+          <tr><td><strong>Autor</strong></td><td>fornece o artefato, esclarece dúvidas, faz o retrabalho</td><td><strong>não se defende</strong> e não conduz (exceto no walkthrough)</td></tr>
+          <tr><td><strong>Leitor</strong></td><td>apresenta o artefato ao grupo, em ritmo controlado</td><td>não opina sobre o que lê</td></tr>
+          <tr><td><strong>Inspetor / Revisor</strong></td><td>detecta e relata defeitos</td><td><strong>não propõe correção durante a reunião</strong></td></tr>
+          <tr><td><strong>Escriba / Registrador</strong></td><td>registra cada defeito na ata: local, tipo, severidade</td><td>não opina, não filtra</td></tr>
+          <tr><td><strong>Gerência</strong></td><td>garante recursos e tempo; recebe dados agregados</td><td><strong>não participa da reunião</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="notes" hidden>A última linha é a mais importante e a mais violada na prática.</div>
+</section>
+
+<!-- ===================== 20 ===================== -->
+<section class="slide" data-title="O moderador">
+  <div class="kicker">Bloco 4 · Papéis</div>
+  <h1>O moderador</h1>
+  <div class="body">
+    <p class="lead">O único papel que <strong>não produz nenhum achado</strong> — e o que mais determina o resultado.</p>
+    <p>Ele existe para:</p>
+    <ul>
+      <li>Manter o foco em <strong>detectar</strong>, cortando toda discussão de solução</li>
+      <li>Garantir que todo o artefato foi coberto, não só a parte interessante</li>
+      <li><strong>Proteger o autor</strong>: a conversa é sobre o artefato</li>
+      <li><strong>Proteger o júnior</strong>: garantir que ele fala antes do sênior</li>
+      <li>Encerrar a sessão quando a detecção começa a cair</li>
+    </ul>
+  </div>
+  <div class="notes" hidden>"Se a reunião de revisão virou reunião de arquitetura, o moderador falhou."</div>
+</section>
+
+<!-- ===================== 21 ===================== -->
+<section class="slide" data-title="Por que gerência fica fora da sala">
+  <div class="kicker">Bloco 4 · Papéis</div>
+  <h1>Por que gerência fica fora da sala</h1>
+  <div class="body">
+    <p>Se a revisão é usada para <strong>avaliar pessoas</strong>, ela deixa de funcionar:</p>
+    <ul>
+      <li>O autor esconde o que não está pronto</li>
+      <li>Os revisores suavizam achados para não prejudicar o colega</li>
+      <li>Ninguém submete artefato cedo — só quando “está bom”</li>
+    </ul>
+    <div class="quote">
+      <strong>Dado de revisão mede o processo, nunca o desempenho individual.</strong><br>
+      Essa regra está na IEEE 1028 e é o que separa uma cultura que revisa de uma que finge revisar.
+    </div>
+  </div>
+  <div class="notes" hidden></div>
+</section>
+
+<!-- ===================== 22 ===================== -->
+<section class="slide" data-title="💬 Pergunta para a turma">
+  <div class="kicker">Bloco 4 · Papéis</div>
+  <h1>💬 Pergunta para a turma</h1>
+  <div class="body" style="display:flex;flex-direction:column;justify-content:center;text-align:center">
+    <p style="font-size:1.75em;font-weight:800;line-height:1.25">Qual desses papéis vocês acham que é o mais difícil?</p>
+    <p style="font-size:1.2em;font-style:italic;color:var(--ink-soft)">(moderador · autor · leitor · inspetor · escriba)</p>
+  </div>
+  <div class="notes" hidden><strong>Deixe a turma responder antes de avançar.</strong> Aceite qualquer resposta. A resposta que interessa: <strong>moderador</strong>, porque é o único que precisa se conter — ele enxerga defeitos e não pode reportá-los, ou vira revisor e para de conduzir. Segunda resposta boa: <strong>autor</strong>, porque exige separar o artefato da própria identidade. Amarre: <em>"daqui a pouco vocês vão exercer esses papéis de verdade."</em></div>
+</section>
+
+<!-- ===================== 23 ===================== -->
+<section class="slide" data-title="As três regras de ouro">
+  <div class="kicker">Bloco 4 · Papéis</div>
+  <h1>As três regras de ouro</h1>
+  <div class="body">
+    <div class="numbered"><div class="n">1</div><div>
+      <div class="punch" style="margin:0">Revisa-se o <strong>artefato</strong>, não a pessoa</div>
+      <div>“Este método retorna três tipos diferentes” ≠ “você não sabe escrever método”</div>
+    </div></div>
+    <div class="numbered"><div class="n">2</div><div>
+      <div class="punch" style="margin:0"><strong>Detectar</strong> ≠ corrigir</div>
+      <div>Discutir a solução durante a revisão consome o tempo de detecção. Anote e siga.</div>
+    </div></div>
+    <div class="numbered"><div class="n">3</div><div>
+      <div class="punch" style="margin:0"><strong>Registro</strong> é o produto</div>
+      <div>Revisão sem ata é conversa. A ata é o que permite acompanhar, medir e melhorar.</div>
+    </div></div>
+  </div>
+  <div class="notes" hidden>Essas três regras estão impressas no enunciado da atividade. Cite isso.</div>
+</section>
+
+<!-- ===================== 24 ===================== -->
+<section class="slide" data-title="O achado mais consistente da pesquisa">
+  <div class="kicker">Bloco 5 · Como se revisa bem</div>
+  <h1>O achado mais consistente da pesquisa</h1>
+  <div class="body">
+    <div class="quote" style="font-size:1.16em"><strong>A preparação individual e silenciosa, antes da reunião, encontra mais defeitos do que a reunião em si.</strong></div>
+    <p>A reunião serve para <strong>consolidar, eliminar duplicatas e classificar severidade</strong> — não para descobrir.</p>
+    <p class="callout"><strong>Implicação prática:</strong> revisão que começa com o grupo abrindo o arquivo junto está usando o formato mais caro (várias pessoas ocupadas) na fase menos produtiva.</p>
+  </div>
+  <div class="notes" hidden>Os modos M3 e M5 da atividade forçam preparação individual. Não conte isso à turma agora — deixe aparecer no quadro comparativo.</div>
+</section>
+
+<!-- ===================== 25 ===================== -->
+<section class="slide" data-title="Checklist">
+  <div class="kicker">Bloco 5 · Como se revisa bem</div>
+  <h1>Checklist</h1>
+  <div class="body">
+    <p><strong>O que é:</strong> lista de verificações derivada dos defeitos que a <strong>sua</strong> equipe realmente comete, aplicada item a item.</p>
+    <ul>
+      <li>✅ Garante <strong>cobertura mínima</strong>: nenhuma área fica sem olhar</li>
+      <li>✅ Torna a revisão <strong>repetível</strong> entre pessoas diferentes</li>
+      <li>⚠️ <strong>Risco:</strong> vira burocracia se ninguém o atualiza</li>
+      <li>⚠️ <strong>Risco:</strong> checklist longo demais faz o revisor marcar sem ler</li>
+    </ul>
+    <p class="callout"><strong>Regra prática:</strong> o checklist nasce do <strong>histórico de defeitos e incidentes</strong>, não da internet. Item que nunca pegou nada em um ano deve ser removido.</p>
+  </div>
+  <div class="notes" hidden></div>
+</section>
+
+<!-- ===================== 26 ===================== -->
+<section class="slide" data-title="Leitura baseada em perspectiva">
+  <div class="kicker">Bloco 5 · Como se revisa bem</div>
+  <h1>Leitura baseada em perspectiva</h1>
+  <div class="body">
+    <p>Em vez de todos lerem tudo do mesmo jeito, <strong>cada revisor lê o artefato inteiro sob um papel diferente</strong>:</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Perspectiva</th><th>Pergunta que guia a leitura</th></tr></thead>
+        <tbody>
+          <tr><td>Cliente / requisito</td><td>“cada regra especificada está aqui?”</td></tr>
+          <tr><td>Testador</td><td>“que caso quebraria isso?”</td></tr>
+          <tr><td>Atacante</td><td>“por onde eu invadiria?”</td></tr>
+          <tr><td>Mantenedor</td><td>“vou mexer nisso em 8 meses. O que me atrapalha?”</td></tr>
+          <tr><td>Operação</td><td>“isso vai para produção no pico. O que quebra?”</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>Por que funciona:</strong> reduz a sobreposição entre revisores e amplia a cobertura de tipos de defeito com o mesmo número de pessoas.</p>
+  </div>
+  <div class="notes" hidden></div>
+</section>
+
+<!-- ===================== 27 ===================== -->
+<section class="slide" data-title="Os números que a prática consolidou">
+  <div class="kicker">Bloco 5 · Como se revisa bem</div>
+  <h1>Os números que a prática consolidou</h1>
+  <div class="body">
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Limite</th><th>Valor de referência</th><th>Por quê</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Tamanho do lote</strong></td><td>≤ <strong>200–400 linhas</strong> por sessão</td><td>acima disso a taxa de detecção despenca</td></tr>
+          <tr><td><strong>Ritmo de leitura</strong></td><td>≤ <strong>~500 linhas/hora</strong></td><td>ler mais rápido é ler menos</td></tr>
+          <tr><td><strong>Duração da sessão</strong></td><td>≤ <strong>60 minutos</strong></td><td>fadiga derruba a detecção</td></tr>
+          <tr><td><strong>Preparação</strong></td><td>obrigatória e individual</td><td>ver slide 24</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small"><em>(Faixas consolidadas a partir de estudos empíricos de larga escala em revisão de código; trate como ordem de grandeza, não como precisão.)</em></p>
+  </div>
+  <div class="notes" hidden>Aponte a ironia: o PR #142 adiciona ~150 linhas e os grupos terão <strong>20 minutos</strong>. Está dentro dos limites. Ainda assim ninguém vai achar tudo.</div>
+</section>
+
+<!-- ===================== 28 ===================== -->
+<section class="slide" data-title="Anatomia de um bom comentário de revisão">
+  <div class="kicker">Bloco 5 · Como se revisa bem</div>
+  <h1>Anatomia de um bom comentário de revisão</h1>
+  <div class="body">
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th style="width:32%">❌ Ruim</th><th>✅ Bom</th></tr></thead>
+        <tbody>
+          <tr><td>“Isso está errado.”</td><td>“Linha 37: <code>vagas_ocupadas &lt;= vagas_total</code> aceita matrícula com a turma cheia. RN-03 exige <code>&lt;</code>.”</td></tr>
+          <tr><td>“Não gostei desse método.”</td><td>“O método retorna <code>bool</code> em 3 caminhos e <code>dict</code> em 1; o chamador não consegue distinguir os casos.”</td></tr>
+          <tr><td>“Você poderia ter usado um dicionário aqui.”</td><td>“Sugestão (não bloqueante): um dicionário evitaria o laço.”</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="punch">Um bom comentário tem: localização · o que está errado · por que é um problema.</p>
+    <p>E marca explicitamente o que é <strong>bloqueante</strong> e o que é <strong>sugestão</strong>.</p>
+  </div>
+  <div class="notes" hidden></div>
+</section>
+
+<!-- ===================== 29 ===================== -->
+<section class="slide" data-title="Anti-padrões">
+  <div class="kicker">Bloco 5 · Como se revisa bem</div>
+  <h1>Anti-padrões</h1>
+  <div class="body">
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Anti-padrão</th><th>O que é</th><th>Por que mata a revisão</th></tr></thead>
+        <tbody>
+          <tr><td><strong>LGTM automático</strong></td><td>aprovar sem ler</td><td>dá selo de qualidade a artefato não revisado — pior que não revisar</td></tr>
+          <tr><td><strong>Nitpicking</strong></td><td>só comentários de estilo</td><td>consome o crédito de atenção com o que menos importa</td></tr>
+          <tr><td><strong>Bikeshedding</strong></td><td>debater o trivial, ignorar o difícil</td><td>a discussão vai para onde todos têm opinião</td></tr>
+          <tr><td><strong>Revisão-emboscada</strong></td><td>usar a revisão para expor alguém</td><td>destrói a segurança psicológica; ninguém mais submete cedo</td></tr>
+          <tr><td><strong>PR gigante</strong></td><td>3.000 linhas de uma vez</td><td>garante aprovação sem leitura</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="notes" hidden>Pergunte: <em>"quantos aqui já deram LGTM sem ler?"</em> Levante a mão você também.</div>
+</section>
+
+<!-- ===================== 30 ===================== -->
+<section class="slide" data-title="Onde a IA entra">
+  <div class="kicker">Bloco 6 · IA em revisão</div>
+  <h1>Onde a IA entra</h1>
+  <div class="body">
+    <p class="lead">A revisão assistida por LLM ocupa hoje um lugar novo no espectro do slide 11: <strong>custo quase zero, disponibilidade imediata, cobertura ampla, confiabilidade variável.</strong></p>
+    <p>Ela <strong>não</strong> é um tipo de revisão à parte — é um <strong>revisor a mais</strong>, com um perfil de acerto muito específico.</p>
+    <p class="callout punch">A pergunta certa não é “IA substitui revisor?”, e sim: <em>que classe de defeito ela detecta bem, e quem valida o resultado dela?</em></p>
+  </div>
+  <div class="notes" hidden></div>
+</section>
+
+<!-- ===================== 31 ===================== -->
+<section class="slide" data-title="O perfil de acerto">
+  <div class="kicker">Bloco 6 · IA em revisão</div>
+  <h1>O perfil de acerto</h1>
+  <div class="body">
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>A IA tende a ir bem em</th><th>A IA tende a falhar em</th></tr></thead>
+        <tbody>
+          <tr><td>Padrões conhecidos (SQL injection, exceção silenciada)</td><td><strong>Conformidade com o requisito</strong> — se você não der o requisito, ela não tem como saber</td></tr>
+          <tr><td>Convenções, legibilidade, nomes</td><td><strong>Defeitos de omissão</strong> — o que deveria existir e não existe</td></tr>
+          <tr><td>Cobertura ampla e instantânea do arquivo</td><td><strong>Comportamento sob concorrência e carga</strong></td></tr>
+          <tr><td>Sugerir a correção junto do achado</td><td><strong>Priorizar</strong>: trata estilo e falha crítica com o mesmo peso</td></tr>
+          <tr><td>Nunca cansar, nunca pular trecho</td><td><strong>Intenção</strong> — por que este teste foi escrito assim</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="notes" hidden>Não faça juízo de valor. Descreva o perfil. A atividade vai produzir a evidência.</div>
+</section>
+
+<!-- ===================== 32 ===================== -->
+<section class="slide" data-title="Os três riscos">
+  <div class="kicker">Bloco 6 · IA em revisão</div>
+  <h1>Os três riscos</h1>
+  <div class="body">
+    <div class="numbered"><div class="n">1</div><div>
+      <div class="punch" style="margin:0">Falso positivo</div>
+      <div>Ela aponta problema onde não há. Custo: tempo do revisor humano.</div>
+    </div></div>
+    <div class="numbered"><div class="n">2</div><div>
+      <div class="punch" style="margin:0">Alucinação</div>
+      <div>Ela afirma que o código faz algo que ele <strong>não faz</strong>. Custo: correção de bug inexistente — e perda de confiança na ferramenta.</div>
+    </div></div>
+    <div class="numbered"><div class="n">3</div><div>
+      <div class="punch" style="margin:0">Viés de automação</div>
+      <div>Você aceita a lista porque veio formatada, confiante e completa. <strong>É o risco mais perigoso, porque é invisível.</strong></div>
+    </div></div>
+    <div class="quote"><strong>Quem valida a IA precisa saber revisar.</strong> Uma equipe que nunca aprendeu a revisar não tem como usar bem um revisor automático — ela não sabe quando ele está errado.</div>
+  </div>
+  <div class="notes" hidden></div>
+</section>
+
+<!-- ===================== 33 — ÂNCORA ===================== -->
+<section class="slide anchor" data-title="⭐ Onde estamos, e onde a próxima aula entra" data-anchor="1">
+  <div class="kicker">Bloco 6 · IA em revisão + gancho</div>
+  <h1><span class="star">⭐</span> Onde estamos, e onde a próxima aula entra</h1>
+  <div class="body">
+    <svg viewBox="0 0 1200 300" style="width:100%;height:auto;max-height:58%" role="img"
+         aria-label="Espectro com a posição de cada grupo: G1 e G4 em revisão informal, G8 em pair review, G2 em walkthrough, G3 G5 G6 G7 em revisão técnica, e a próxima aula na inspeção formal.">
+      <defs>
+        <marker id="arrow2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#16233a"/>
+        </marker>
+      </defs>
+      <g font-family="Segoe UI,system-ui,sans-serif">
+        <g text-anchor="middle" font-size="23" font-weight="800" fill="#16233a">
+          <text x="100" y="30">Revisão</text><text x="100" y="58">informal</text>
+          <text x="300" y="30">Pair</text><text x="300" y="58">review</text>
+          <text x="500" y="30">Walkthrough</text>
+          <text x="700" y="30">Revisão</text><text x="700" y="58">técnica</text>
+          <text x="900" y="30">Inspeção</text><text x="900" y="58">formal</text>
+          <text x="1100" y="30">Auditoria</text>
+        </g>
+        <line x1="30" y1="88" x2="1168" y2="88" stroke="#16233a" stroke-width="5" marker-end="url(#arrow2)"/>
+        <g fill="#0b6e99">
+          <path d="M100 100 l14 26 h-28 z"/><path d="M300 100 l14 26 h-28 z"/><path d="M500 100 l14 26 h-28 z"/>
+          <path d="M700 100 l14 26 h-28 z"/><path d="M900 100 l14 26 h-28 z"/>
+        </g>
+        <g stroke="#0b6e99" stroke-width="3">
+          <path d="M100 126 L100 168 M300 126 L300 168 M500 126 L500 168 M700 126 L700 168 M900 126 L900 168"/>
+        </g>
+        <g text-anchor="middle" font-size="27" font-weight="800" fill="#08506f">
+          <text x="100" y="200">G1, G4</text>
+          <text x="300" y="200">G8</text>
+          <text x="500" y="200">G2</text>
+          <text x="700" y="200">G3, G5, G6, G7</text>
+        </g>
+        <rect x="790" y="176" width="220" height="76" rx="8" fill="#c62828"/>
+        <g text-anchor="middle" fill="#fff">
+          <text x="900" y="206" font-size="24" font-weight="800">PRÓXIMA AULA</text>
+          <text x="900" y="234" font-size="21">(Fagan)</text>
+        </g>
+      </g>
+    </svg>
+    <p><strong>Hoje:</strong> o mapa inteiro — conceitos, tipos, papéis, e a experiência de aplicar cinco pontos diferentes deste espectro.</p>
+    <p><strong>Próxima aula:</strong> o extremo direito, levado a sério.</p>
+  </div>
+  <div class="notes" hidden></div>
+</section>
+
+<!-- ===================== 34 — CARTAZ DA ATIVIDADE ===================== -->
+<section class="slide poster" data-title="A atividade: Campeonato de Revisão">
+  <div class="kicker">Atividade</div>
+  <h1>A atividade: Campeonato de Revisão</h1>
+  <div class="body">
+    <div class="qrgrid">
+      <div class="left">
+        <p class="punch" style="margin-top:0">O mesmo PR #142. Oito grupos. Métodos diferentes.</p>
+        <ol>
+          <li>Cada grupo recebe um <strong>cartão de modo</strong> — não mostre para os outros grupos</li>
+          <li><strong>2 min</strong> para distribuir os papéis que o cartão define</li>
+          <li><strong>20 min</strong> de revisão, seguindo o cartão à risca</li>
+          <li><strong>5 min</strong> para fechar a <strong>ata de revisão</strong> — que é entregue à professora</li>
+        </ol>
+        <p><strong>No repositório:</strong> PR #142 (aba <em>Files changed</em>) · <code>docs/RF-014.md</code> · <code>CONTRIBUTING.md</code><br>
+           <strong>Em papel:</strong> cartão do modo · ata de revisão</p>
+        <p class="callout" style="font-weight:700">Sem conta no GitHub, sem comentar no PR, sem linter e sem IA — exceto os grupos que receberam o cartão de revisão assistida.</p>
+      </div>
+      <div class="right">
+        <div class="qrcap">Aba <em>Files changed</em> do PR</div>
+        <div class="qrbox">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37 37"><path stroke="#000" d="M2 2.5h7m3 0h2m2 0h1m1 0h2m4 0h1m3 0h7m-33 1h1m5 0h1m1 0h2m1 0h4m2 0h2m2 0h2m3 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m4 0h1m7 0h2m3 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m1 0h1m4 0h2m2 0h2m2 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m5 0h2m1 0h1m2 0h7m1 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m3 0h1m2 0h2m2 0h2m1 0h2m4 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h1m3 0h1m1 0h1m3 0h3m3 0h1m-25 1h1m5 0h1m1 0h2m2 0h6m1 0h2m4 0h2m2 0h3m-32 1h1m1 0h1m1 0h2m1 0h1m2 0h2m3 0h1m1 0h2m3 0h2m4 0h3m-31 1h1m5 0h2m4 0h1m2 0h2m1 0h1m2 0h1m2 0h1m3 0h1m1 0h2m-32 1h2m2 0h2m2 0h4m2 0h1m1 0h1m1 0h1m5 0h1m1 0h7m-31 1h1m1 0h1m1 0h1m1 0h1m2 0h1m1 0h4m2 0h2m3 0h1m1 0h1m5 0h1m-32 1h2m2 0h1m3 0h4m1 0h1m3 0h2m1 0h3m2 0h2m2 0h3m-33 1h3m1 0h1m1 0h1m1 0h3m3 0h3m1 0h1m1 0h1m1 0h1m1 0h4m1 0h3m-32 1h2m2 0h2m4 0h1m4 0h2m3 0h1m1 0h1m2 0h1m1 0h2m1 0h1m1 0h1m-33 1h5m1 0h1m2 0h7m1 0h1m2 0h1m1 0h4m1 0h2m3 0h1m-31 1h1m1 0h1m2 0h1m1 0h4m2 0h2m3 0h1m2 0h1m2 0h1m2 0h2m1 0h1m-32 1h1m1 0h1m1 0h2m3 0h1m1 0h1m1 0h6m1 0h1m1 0h3m1 0h1m1 0h2m1 0h1m-33 1h4m3 0h2m3 0h1m1 0h3m2 0h2m1 0h1m2 0h1m2 0h4m-32 1h1m3 0h1m1 0h2m2 0h1m2 0h1m2 0h2m1 0h2m1 0h1m1 0h2m2 0h2m2 0h1m-33 1h2m3 0h1m1 0h1m1 0h1m1 0h2m2 0h1m2 0h3m1 0h2m3 0h3m-30 1h1m2 0h4m1 0h2m2 0h2m1 0h2m3 0h1m4 0h1m3 0h3m-32 1h1m2 0h1m4 0h2m1 0h3m2 0h1m2 0h2m1 0h1m2 0h2m2 0h4m-33 1h2m1 0h2m1 0h2m4 0h1m1 0h3m3 0h1m2 0h7m1 0h1m-24 1h2m1 0h2m1 0h6m1 0h1m1 0h2m3 0h1m1 0h1m1 0h1m-33 1h7m6 0h3m1 0h1m2 0h5m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m2 0h3m1 0h1m2 0h1m1 0h1m3 0h3m3 0h4m-32 1h1m1 0h3m1 0h1m3 0h2m1 0h2m2 0h1m1 0h1m2 0h1m1 0h6m-30 1h1m1 0h3m1 0h1m2 0h1m1 0h2m1 0h3m1 0h2m1 0h1m1 0h3m1 0h3m1 0h2m-33 1h1m1 0h3m1 0h1m2 0h1m4 0h2m2 0h3m2 0h1m1 0h1m1 0h2m1 0h3m-33 1h1m5 0h1m3 0h1m2 0h4m3 0h1m1 0h2m3 0h4m-31 1h7m1 0h2m2 0h1m1 0h2m1 0h1m1 0h1m2 0h6m3 0h1"/></svg>
+        </div>
+        <div class="qrurl">github.com/PPrauchner/<br>siga-matricula/pull/1/changes</div>
+      </div>
+    </div>
+  </div>
+  <div class="notes" hidden><strong>Este slide fica no ar durante toda a atividade.</strong> É o único jeito de um grupo que perdeu o link voltar a ele sem interromper a squad.</div>
+</section>
+
+<!-- ===================== 35 ===================== -->
+<section class="slide" data-title="Regras e pontuação">
+  <div class="kicker">Atividade</div>
+  <h1>Regras e pontuação</h1>
+  <div class="body">
+    <p class="punch" style="margin-top:0">Regras</p>
+    <ul>
+      <li>Revisa-se o artefato, <strong>não o autor</strong></li>
+      <li><strong>Registrar</strong> o defeito, não debater a correção</li>
+      <li>Achado <strong>sem localização</strong> não conta</li>
+      <li><strong>Falso positivo custa</strong> — metralhar não vence</li>
+    </ul>
+    <p class="punch">No quadro, cada grupo reporta</p>
+    <div class="tablewrap">
+      <table class="empty">
+        <thead><tr><th>Defeitos reais</th><th>Falsos positivos</th><th>Críticos (de 5)</th><th>Achado exclusivo</th></tr></thead>
+        <tbody><tr><td></td><td></td><td></td><td></td></tr></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="notes" hidden>Última frase antes de soltar os grupos: <em>"vocês têm 20 minutos e um diff de 150 linhas. Está dentro dos limites do slide 27. Boa sorte."</em></div>
+</section>
+
+<!-- ===================== 36 — ÂNCORA ===================== -->
+<section class="slide anchor" data-title="⭐ Matriz de cobertura" data-anchor="1">
+  <div class="kicker">Comparação</div>
+  <h1><span class="star">⭐</span> Matriz de cobertura</h1>
+  <div class="body">
+    <p class="small"><em>(slide preenchido AO VIVO — projetar a tabela em branco de <code>A9_quadro_comparativo.md</code>)</em></p>
+    <div class="tablewrap">
+      <table class="empty">
+        <thead><tr><th>Defeito</th><th class="c">G1</th><th class="c">G2</th><th class="c">G3</th><th class="c">G4</th><th class="c">G5</th><th class="c">G6</th><th class="c">G7</th><th class="c">G8</th></tr></thead>
+        <tbody>
+          <tr><td><strong>D01 … D12</strong></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="notes" hidden><strong>Não revele o gabarito antes de preencher.</strong> A tabela cheia de buracos é o argumento visual da aula.</div>
+</section>
+
+<!-- ===================== 37 ===================== -->
+<section class="slide" data-title="Os 12 defeitos">
+  <div class="kicker">Comparação</div>
+  <h1>Os 12 defeitos</h1>
+  <div class="body">
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th style="width:4.5em">ID</th><th>Defeito</th><th style="width:5em">Tipo</th><th style="width:7em">Sev.</th></tr></thead>
+        <tbody>
+          <tr><td><strong>D01</strong></td><td>Limite de créditos 24, requisito v1.2 diz 28</td><td>REQ</td><td class="sev sev-alta"><span class="dot dot-alta"></span>Alta</td></tr>
+          <tr><td><strong>D02</strong></td><td>RN-05 (choque de horário) não implementada</td><td>REQ</td><td class="sev sev-alta"><span class="dot dot-alta"></span>Alta</td></tr>
+          <tr><td><strong>D03</strong></td><td>RN-04 tratada pela metade (falta INADIMPLENTE)</td><td>REQ</td><td class="sev sev-media"><span class="dot dot-media"></span>Média</td></tr>
+          <tr><td><strong>D04</strong></td><td>Pré-requisito sem checar aprovação</td><td>LOG</td><td class="sev sev-alta"><span class="dot dot-alta"></span>Alta</td></tr>
+          <tr><td><strong>D05</strong></td><td><code>&lt;=</code> aceita matrícula com turma cheia</td><td>LOG</td><td class="sev sev-media"><span class="dot dot-media"></span>Média</td></tr>
+          <tr><td><strong>D06</strong></td><td>Condição de corrida entre verificar e ocupar a vaga</td><td>LOG</td><td class="sev sev-media"><span class="dot dot-media"></span>Média</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="notes" hidden></div>
+</section>
+
+<!-- ===================== 38 ===================== -->
+<section class="slide" data-title="Os 12 defeitos (cont.)">
+  <div class="kicker">Comparação</div>
+  <h1>Os 12 defeitos (cont.)</h1>
+  <div class="body">
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th style="width:4.5em">ID</th><th>Defeito</th><th style="width:5em">Tipo</th><th style="width:7em">Sev.</th></tr></thead>
+        <tbody>
+          <tr><td><strong>D07</strong></td><td>SQL injection por concatenação</td><td>SEG</td><td class="sev sev-alta"><span class="dot dot-alta"></span>Alta</td></tr>
+          <tr><td><strong>D08</strong></td><td>CPF e token de sessão gravados em log</td><td>SEG</td><td class="sev sev-alta"><span class="dot dot-alta"></span>Alta</td></tr>
+          <tr><td><strong>D09</strong></td><td>Teste que não verifica nada + teste que congela o bug</td><td>TST</td><td class="sev sev-media"><span class="dot dot-media"></span>Média</td></tr>
+          <tr><td><strong>D10</strong></td><td>8 regras de negócio, 2 testes, nenhum caminho de recusa</td><td>TST</td><td class="sev sev-media"><span class="dot dot-media"></span>Média</td></tr>
+          <tr><td><strong>D11</strong></td><td>Limite duplicado com valores divergentes (24 e 28)</td><td>MAN</td><td class="sev sev-baixa"><span class="dot dot-baixa"></span>Baixa</td></tr>
+          <tr><td><strong>D12</strong></td><td>Retorno inconsistente + <code>except Exception: pass</code></td><td>MAN</td><td class="sev sev-baixa"><span class="dot dot-baixa"></span>Baixa</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="notes" hidden></div>
+</section>
+
+<!-- ===================== 39 ===================== -->
+<section class="slide" data-title="As quatro leituras">
+  <div class="kicker">Comparação</div>
+  <h1>As quatro leituras</h1>
+  <div class="body">
+    <div class="numbered"><div class="n">1</div><div>
+      <div class="punch" style="margin:0">Nenhum grupo achou os 12. A <strong>união</strong> de vocês achou quase todos.</div>
+      <div>→ Revisão é atividade <strong>coletiva</strong>. Revisor único é ponto cego único.</div>
+    </div></div>
+    <div class="numbered"><div class="n">2</div><div>
+      <div class="punch" style="margin:0">D01, D02, D03 só foram achados por quem tinha o <strong>requisito</strong> na mão.</div>
+      <div>→ Sem artefato de referência não se detecta defeito de <strong>conformidade</strong> — o mais caro de todos.</div>
+    </div></div>
+    <div class="numbered"><div class="n">3</div><div>
+      <div class="punch" style="margin:0">G3 e G6 usaram o <strong>mesmo cartão</strong> e acharam conjuntos diferentes.</div>
+      <div>→ Variabilidade entre revisores é real. Processo formal reduz — não elimina.</div>
+    </div></div>
+    <div class="numbered"><div class="n">4</div><div>
+      <div class="punch" style="margin:0">G4 e G7 usaram a <strong>mesma IA</strong> com prompts diferentes.</div>
+      <div>→ A diferença não estava no modelo. Estava no <strong>contexto</strong> que foi dado a ele.</div>
+    </div></div>
+  </div>
+  <div class="notes" hidden>Se ninguém achou o D06, essa é a quinta leitura e a mais importante: <strong>revisão estática tem um limite.</strong> Existem defeitos que só teste, carga ou produção revelam. Revisão e teste são complementares — nunca substitutos.</div>
+</section>
+
+<!-- ===================== 40 ===================== -->
+<section class="slide" data-title="O que levar desta aula">
+  <div class="kicker">Fecho</div>
+  <h1>O que levar desta aula</h1>
+  <div class="body">
+    <div class="numbered"><div class="n">1</div><div class="punch" style="margin:0">Revisão detecta o que o teste não alcança — e o mais cedo possível.</div></div>
+    <div class="numbered"><div class="n">2</div><div class="punch" style="margin:0">Não existe “a” revisão. Existe um espectro, e escolher o ponto certo é decisão de engenharia: <strong>criticidade do artefato versus custo do processo.</strong></div></div>
+    <div class="numbered"><div class="n">3</div><div class="punch" style="margin:0">Papel definido é o que transforma “várias pessoas olhando” em detecção.</div></div>
+    <p class="callout" style="text-align:center;font-size:1.15em"><strong>E a pergunta da abertura:</strong> <em>mergeia?</em></p>
+  </div>
+  <div class="notes" hidden>Feche com o gancho: <em>"vocês fizeram revisão técnica em 20 minutos e acharam de 2 a 12 defeitos. Na próxima aula vocês vão ver o extremo do espectro — a inspeção formal de Fagan — e por que uma empresa aceita gastar 6 horas de 4 pessoas em 200 linhas de código."</em> Recolher as atas.</div>
+</section>
+
+<!-- ===================== 41 ===================== -->
+<section class="slide" data-title="Referências">
+  <div class="kicker">Fecho</div>
+  <h1>Referências</h1>
+  <div class="body" style="font-size:calc(25px * var(--fs,1))">
+    <ul>
+      <li><strong>IEEE Std 1028</strong> — <em>IEEE Standard for Software Reviews and Audits</em></li>
+      <li><strong>ISO/IEC/IEEE 12207</strong> — processos de ciclo de vida de software</li>
+      <li><strong>ISO/IEC/IEEE 29119</strong> — teste de software (para situar V&amp;V)</li>
+      <li><strong>FAGAN, M. E.</strong> — <em>Design and code inspections to reduce errors in program development</em>, IBM Systems Journal, 1976</li>
+      <li><strong>BOEHM, B.</strong> — <em>Software Engineering Economics</em>, 1981 (curva de custo do defeito)</li>
+      <li><strong>JONES, C.</strong> — dados de eficácia de remoção de defeitos</li>
+      <li><strong>BASILI, V. et al.</strong> — <em>The Empirical Investigation of Perspective-Based Reading</em></li>
+      <li><strong>SOMMERVILLE, I.</strong> — <em>Engenharia de Software</em>, cap. de V&amp;V</li>
+      <li><strong>PRESSMAN, R.</strong> — <em>Engenharia de Software: uma abordagem profissional</em>, cap. de revisões</li>
+    </ul>
+  </div>
+  <div class="notes" hidden>Deixe este slide projetado enquanto recolhe as atas.</div>
+</section>
+
+  <!-- barra do cronômetro -->
+  <div id="timerbar">
+    <div id="timerfill"></div>
+    <div class="tick" style="left:44.44%"><span>40 min</span></div>
+    <div class="tick" style="left:77.78%"><span>70 min</span></div>
+    <div class="tick" style="left:94.44%"><span>85 min</span></div>
+  </div>
+
+  <!-- rodapé -->
+  <div id="footer">
+    <span class="title" id="ftitle"></span>
+    <span id="clock">00:00</span>
+    <span id="counter">1 / 41</span>
+  </div>
+
+</div><!-- /stage -->
+</div><!-- /viewport -->
+
+<div id="notes"><h3>Notas do apresentador</h3><div class="n-body" id="nbody"></div></div>
+
+<div id="grid"><h2>Todos os slides — clique para pular</h2><div class="cells" id="gcells"></div></div>
+
+<div id="help">
+  <b>←/→ · Espaço · clique · swipe</b> navegar<br>
+  <b>N</b> notas do apresentador &nbsp; <b>G</b> grade<br>
+  <b>T</b> cronômetro (Shift+T zera) &nbsp; <b>F</b> tela cheia<br>
+  <b>Home/End</b> primeiro/último &nbsp; <b>?</b> fecha esta ajuda
+</div>
+
+<script>
+(function(){
+"use strict";
+var slides = [].slice.call(document.querySelectorAll('.slide'));
+var total  = slides.length;
+var cur    = 0;
+var stage  = document.getElementById('stage');
+var counter= document.getElementById('counter');
+var ftitle = document.getElementById('ftitle');
+var nbody  = document.getElementById('nbody');
+var gridEl = document.getElementById('grid');
+var helpEl = document.getElementById('help');
+var clockEl= document.getElementById('clock');
+var barEl  = document.getElementById('timerbar');
+var fillEl = document.getElementById('timerfill');
+
+/* ---------- escala do palco (1280x720) ---------- */
+function fitStage(){
+  var vp = document.getElementById('viewport').getBoundingClientRect();
+  var s = Math.min(vp.width / 1280, vp.height / 720);
+  stage.style.transform = 'scale(' + s + ')';
+}
+window.addEventListener('resize', fitStage);
+
+/* ---------- auto-ajuste: nada pode transbordar ---------- */
+function fitBody(slide){
+  var b = slide.querySelector('.body');
+  if(!b) return;
+  var f = 1;
+  b.style.setProperty('--fs', 1);
+  while(b.scrollHeight > b.clientHeight + 1 && f > 0.62){
+    f -= 0.04;
+    b.style.setProperty('--fs', f.toFixed(2));
+  }
+}
+
+/* ---------- navegação ---------- */
+function show(i){
+  if(i < 0) i = 0;
+  if(i > total - 1) i = total - 1;
+  slides[cur].classList.remove('active');
+  cur = i;
+  var s = slides[cur];
+  s.classList.add('active');
+  counter.textContent = (cur + 1) + ' / ' + total;
+  ftitle.textContent  = s.getAttribute('data-title') || '';
+  var n = s.querySelector('.notes');
+  nbody.innerHTML = (n && n.innerHTML.trim()) ? n.innerHTML : '<em style="color:#8fa6bb">— sem notas para este slide —</em>';
+  fitBody(s);
+  markGrid();
+}
+function next(){ show(cur + 1); }
+function prev(){ show(cur - 1); }
+
+/* ---------- grade (G) ---------- */
+var cells = document.getElementById('gcells');
+slides.forEach(function(s, i){
+  var c = document.createElement('div');
+  c.className = 'cell' + (s.getAttribute('data-anchor') ? ' anchor-cell' : '');
+  c.innerHTML = '<span class="num">' + (i + 1) + '</span>' + (s.getAttribute('data-title') || '');
+  c.addEventListener('click', function(){ gridEl.classList.remove('on'); show(i); });
+  cells.appendChild(c);
+});
+function markGrid(){
+  var cs = cells.children;
+  for(var i = 0; i < cs.length; i++) cs[i].classList.toggle('current', i === cur);
+}
+
+/* ---------- cronômetro (T) ---------- */
+var TOTAL_MIN = 90;
+var running = false, elapsed = 0, last = 0, tick = null;
+function fmt(ms){
+  var t = Math.floor(ms / 1000);
+  return String(Math.floor(t / 60)).padStart(2, '0') + ':' + String(t % 60).padStart(2, '0');
+}
+function paint(){
+  clockEl.textContent = fmt(elapsed);
+  var min = elapsed / 60000;
+  fillEl.style.width = Math.min(100, (min / TOTAL_MIN) * 100) + '%';
+  document.body.classList.toggle('t-40', min >= 40 && min < 70);
+  document.body.classList.toggle('t-70', min >= 70 && min < 85);
+  document.body.classList.toggle('t-85', min >= 85);
+}
+function toggleTimer(){
+  if(running){
+    running = false;
+    clearInterval(tick);
+  }else{
+    running = true;
+    clockEl.classList.add('on');
+    barEl.classList.add('on');
+    last = Date.now();
+    tick = setInterval(function(){
+      var now = Date.now();
+      elapsed += now - last;
+      last = now;
+      paint();
+    }, 250);
+  }
+  paint();
+}
+function resetTimer(){
+  running = false; clearInterval(tick); elapsed = 0;
+  clockEl.classList.remove('on'); barEl.classList.remove('on');
+  paint();
+}
+
+/* ---------- teclado ---------- */
+document.addEventListener('keydown', function(e){
+  var k = e.key;
+  if(k === 'Escape'){ gridEl.classList.remove('on'); helpEl.classList.remove('on'); return; }
+  if(k === 'ArrowRight' || k === 'PageDown' || k === ' ' || k === 'Spacebar'){ e.preventDefault(); next(); return; }
+  if(k === 'ArrowLeft'  || k === 'PageUp'){ e.preventDefault(); prev(); return; }
+  if(k === 'Home'){ show(0); return; }
+  if(k === 'End'){ show(total - 1); return; }
+  if(k === 'n' || k === 'N'){
+    document.body.classList.toggle('notes-on');
+    fitStage(); fitBody(slides[cur]); return;
+  }
+  if(k === 'g' || k === 'G'){ gridEl.classList.toggle('on'); return; }
+  if(k === 't'){ toggleTimer(); return; }
+  if(k === 'T'){ resetTimer(); return; }
+  if(k === 'f' || k === 'F'){
+    if(document.fullscreenElement) document.exitFullscreen();
+    else document.documentElement.requestFullscreen();
+    return;
+  }
+  if(k === '?'){ helpEl.classList.toggle('on'); return; }
+});
+
+/* ---------- clique ---------- */
+document.getElementById('viewport').addEventListener('click', function(e){
+  if(gridEl.classList.contains('on')) return;
+  if(e.clientX < window.innerWidth * 0.22) prev(); else next();
+});
+
+/* ---------- swipe ---------- */
+var tx = 0, ty = 0;
+document.addEventListener('touchstart', function(e){
+  tx = e.changedTouches[0].clientX; ty = e.changedTouches[0].clientY;
+}, {passive:true});
+document.addEventListener('touchend', function(e){
+  var dx = e.changedTouches[0].clientX - tx;
+  var dy = e.changedTouches[0].clientY - ty;
+  if(Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)){ if(dx < 0) next(); else prev(); }
+}, {passive:true});
+
+/* ---------- start ---------- */
+fitStage();
+slides.forEach(function(s){ s.classList.add('active'); fitBody(s); s.classList.remove('active'); });
+show(0);
+window.addEventListener('resize', function(){ fitBody(slides[cur]); });
+})();
+</script>
+</body>
+</html>
