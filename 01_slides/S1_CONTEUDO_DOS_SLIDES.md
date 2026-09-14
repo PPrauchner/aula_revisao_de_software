@@ -5,11 +5,11 @@
 > (não vão para a tela). Formato pronto para gerar o HTML depois.
 >
 > **Convenção visual sugerida:** fundo claro, uma ideia por slide, no máximo 6 linhas
-> de texto. Os slides 11, 17, 33 e 36 são os "slides-âncora" — a turma volta a eles.
+> de texto. Os slides 11, 17, 36 e 39 são os "slides-âncora" — a turma volta a eles.
 >
 > **Turma:** 7 grupos, 40 alunos (G1 e G2 com 5). **Squad de 5:** A1 Pietro ·
 > A2 Lorenzo · A3 Inaurrara · A4 Andreus · A5 Bruno. **Aula em 15/09/2026.**
-> Os slides **32-A, 32-B e 32-C** são novos — não estavam na versão de 6 apresentadores.
+> Os slides **33, 34 e 35** são novos — não estavam na versão de 6 apresentadores.
 
 ---
 
@@ -519,7 +519,7 @@ E marca explicitamente o que é **bloqueante** e o que é **sugestão**.
 
 ---
 
-# BLOCO 5 — IA em revisão + gancho (A5 · Bruno) · slides 30–33 · 8 min
+# BLOCO 5 — IA em revisão + gancho (A5 · Bruno) · slides 30–36 · 8 min
 
 ## Slide 30 — Onde a IA entra
 
@@ -566,7 +566,7 @@ Você aceita a lista porque veio formatada, confiante e completa.
 
 ---
 
-## Slide 32-A — A IA errando, ao vivo
+## Slide 33 — A IA errando, ao vivo
 
 **Saída de IA, item 9** — gerada sobre este mesmo código:
 
@@ -586,7 +586,7 @@ O único filtro é alguém abrir o arquivo.
 
 ---
 
-## Slide 32-B — 💡 A IA pode ser o *moderador* de uma revisão?
+## Slide 34 — 💡 A IA pode ser o *moderador* de uma revisão?
 
 *(volte ao slide 22 — os papéis da IEEE 1028)*
 
@@ -606,7 +606,7 @@ produzem texto, e nenhum dos que produzem responsabilidade.
 
 ---
 
-## Slide 32-C — Quem revisa o revisor
+## Slide 35 — Quem revisa o revisor
 
 A revisão assistida **não elimina trabalho: ela desloca o trabalho.**
 
@@ -628,7 +628,7 @@ A revisão assistida **não elimina trabalho: ela desloca o trabalho.**
 
 ---
 
-## Slide 33 — ⭐ Onde estamos, e onde a próxima aula entra
+## Slide 36 — ⭐ Onde estamos, e onde a próxima aula entra
 
 ```
   Revisão      Pair       Walkthrough   Revisão     Inspeção      Auditoria
@@ -647,9 +647,9 @@ mercado e o menos formal de todos.*
 
 ---
 
-# ATIVIDADE · slides 34–35
+# ATIVIDADE · slides 37–38
 
-## Slide 34 — A atividade: Campeonato de Revisão
+## Slide 37 — A atividade: Campeonato de Revisão
 
 **O mesmo PR #1. Sete grupos. Métodos diferentes.**
 
@@ -672,7 +672,7 @@ mercado e o menos formal de todos.*
 
 ---
 
-## Slide 35 — Regras e pontuação
+## Slide 38 — Regras e pontuação
 
 **Regras**
 
@@ -691,9 +691,9 @@ mercado e o menos formal de todos.*
 
 ---
 
-# COMPARAÇÃO · slides 36–38
+# COMPARAÇÃO · slides 39–42
 
-## Slide 36 — ⭐ Matriz de cobertura
+## Slide 39 — ⭐ Matriz de cobertura
 
 *(slide preenchido AO VIVO — projetar a tabela em branco de `A9_quadro_comparativo.md`)*
 
@@ -706,7 +706,7 @@ mercado e o menos formal de todos.*
 
 ---
 
-## Slide 37 — Os 12 defeitos
+## Slide 40 — Os 12 defeitos
 
 | ID | Defeito | Tipo | Sev. |
 |---|---|---|---|
@@ -716,6 +716,13 @@ mercado e o menos formal de todos.*
 | D04 | Pré-requisito sem checar aprovação | LOG | 🔴 |
 | D05 | `<=` aceita matrícula com turma cheia | LOG | 🟠 |
 | D06 | Condição de corrida entre verificar e ocupar a vaga | LOG | 🟠 |
+
+---
+
+## Slide 41 — Os 12 defeitos (cont.)
+
+| ID | Defeito | Tipo | Sev. |
+|---|---|---|---|
 | D07 | SQL injection por concatenação | SEG | 🔴 |
 | D08 | CPF e token de sessão gravados em log | SEG | 🔴 |
 | D09 | Teste que não verifica nada + teste que congela o bug | TST | 🟠 |
@@ -725,7 +732,7 @@ mercado e o menos formal de todos.*
 
 ---
 
-## Slide 38 — As quatro leituras
+## Slide 42 — As quatro leituras
 
 ### 1. Nenhum grupo achou os 12. A **união** de vocês achou quase todos.
 → Revisão é atividade **coletiva**. Revisor único é ponto cego único.
@@ -745,9 +752,9 @@ mercado e o menos formal de todos.*
 
 ---
 
-# FECHO · slides 39–40
+# FECHO · slides 43–44
 
-## Slide 39 — O que levar desta aula
+## Slide 43 — O que levar desta aula
 
 ### **1.** Revisão detecta o que o teste não alcança — e o mais cedo possível.
 
@@ -764,7 +771,7 @@ mercado e o menos formal de todos.*
 
 ---
 
-## Slide 40 — Referências
+## Slide 44 — Referências
 
 - **IEEE Std 1028** — *IEEE Standard for Software Reviews and Audits*
 - **ISO/IEC/IEEE 12207** — processos de ciclo de vida de software

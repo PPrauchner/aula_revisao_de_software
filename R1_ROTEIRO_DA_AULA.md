@@ -14,7 +14,7 @@
 | **A2** | **Lorenzo Ponsi Ficher** | Tipos de revisão | 10–17 | 8 min | Distribui os cartões de modo | **G4, G7** |
 | **A3** | **Inaurrara Flores Rozado** | Papéis na revisão | 18–23 | 8 min | Entrega o checklist e confere os papéis | **G3, G6** |
 | **A4** | **Andreus Dean Ferreira Almeida Rodrigues Vargas** | Como se revisa bem | 24–29 | 7 min | Recolhe as atas | G5 |
-| **A5** | **Bruno da Silva Rocha** | IA em revisão + gancho Fagan | 30–33 (+32-A/B/C) | 8 min | **Cronômetro e quadro comparativo** | — |
+| **A5** | **Bruno da Silva Rocha** | IA em revisão + gancho Fagan | 30–36 | 8 min | **Cronômetro e quadro comparativo** | — |
 
 **Por que cada par controlado tem um único facilitador.** G3/G6 (mesmo checklist) e
 G4/G7 (mesma IA, prompts diferentes) são comparados lado a lado na revelação final.
@@ -88,23 +88,23 @@ manda fazer o quê agora?"* ou *"vocês abriram o documento de requisitos?"*.
 
 ### 🕐 00:32 – 00:40 · IA em revisão + gancho Fagan (A5 · Bruno) — 8 min
 
-- Slides 30–33 e os três slides novos **32-A, 32-B e 32-C**.
+- Slides 30–36, incluindo os três slides novos **33, 34 e 35**.
 - O que LLM pega bem, o que não pega; falso positivo e viés de automação.
-- **32-A — a alucinação, ao vivo.** Projete o item 9 da Saída A (`_adicionar_lista_espera`
+- **Slide 33 — a alucinação, ao vivo.** Projete o item 9 da Saída A (`_adicionar_lista_espera`
   "sem commit") ao lado da linha 81 do código. A turma vê a IA errar **antes** de ir
   para a atividade — não depois, na forma de reclamação.
-- **32-B — momento de participação:** *"a IA pode ser o moderador de uma revisão?"*
+- **Slide 34 — momento de participação:** *"a IA pode ser o moderador de uma revisão?"*
   Deixe responderem. A resposta que interessa é **não**: o moderador é o papel que não
   produz achado e **responde pelo processo** — é exatamente o que um modelo não assume.
   Amarra de volta no slide 22 do A3.
-- **32-C — quem revisa o revisor.** O custo da revisão assistida é o tempo de triagem.
+- **Slide 35 — quem revisa o revisor.** O custo da revisão assistida é o tempo de triagem.
   Avise que G4 e G7 vão sentir isso na pele em vinte minutos.
 - Encerrar a teoria com o slide do espectro de novo, marcando onde a próxima aula entra.
 
 ### 🕐 00:40 – 00:43 · Setup da atividade (A5 explica, A1/A2/A3 distribuem) — 3 min
 
 - A5 explica em 90 segundos: **mesmo PR, 7 grupos, modos diferentes, quadro no final.**
-- **Projete o slide 34 com o QR code do repositório** e deixe-o no ar durante toda a
+- **Projete o slide 37 com o QR code do repositório** e deixe-o no ar durante toda a
   atividade. A turma abre o PR direto no notebook — não precisa de conta no GitHub.
 - A1 distribui o que é papel: `A0_ENUNCIADO` e `A6_ata` para todos.
 - A3 entrega o `A5_checklist` **só para G3 e G6** — os dois ao mesmo tempo, para que
@@ -170,7 +170,7 @@ Seguir o roteiro da seção 6 do gabarito, nesta ordem:
 4. **Revelar que G3 e G6 tinham o mesmo cartão.** Comparar os conjuntos.
    *Variabilidade entre revisores — é por isso que se revisa em grupo.*
 5. **Revelar que G4 e G7 tinham prompts diferentes.** Mostrar a Saída B ao G4.
-   *A diferença não estava no modelo. Estava no contexto.* Retomar o slide 32-A:
+   *A diferença não estava no modelo. Estava no contexto.* Retomar o slide 33:
    a IA que alucinou na teoria é a mesma que os dois grupos acabaram de usar.
 
 > ⏱ Este bloco ganhou 1 minuto (eram 7) porque a turma tem 7 grupos em vez de 8.
@@ -178,7 +178,7 @@ Seguir o roteiro da seção 6 do gabarito, nesta ordem:
 
 ### 🕐 01:25 – 01:30 · Fecho (A1 + A5) — 5 min
 
-- Slide 34: as três frases que a turma leva.
+- Slide 43: as três frases que a turma leva.
 - A1 retoma a pergunta da abertura: **"mergeia?"**
 - A5: gancho explícito para a próxima aula — *"vocês acabaram de fazer revisão técnica
   em 20 minutos. Inspeção formal de Fagan é o mesmo problema levado a sério: fases
@@ -199,7 +199,7 @@ Seguir o roteiro da seção 6 do gabarito, nesta ordem:
       PR continua com **2 arquivos** (`matricula.py` e `test_matricula.py`) e nada mais
 - [ ] Abrir o repositório em **janela anônima**, sem login: repo, PR e aba *Files changed*
 - [ ] Rodar a verificação anti-spoiler do `git log` e do `git grep`
-- [x] QR code gerado e embutido no **slide 34** (deck HTML) e no `A0_ENUNCIADO` (`02_atividade/qr_pr1.png`) —
+- [x] QR code gerado e embutido no **slide 37** (deck HTML) e no `A0_ENUNCIADO` (`02_atividade/qr_pr1.png`) —
       `https://github.com/PPrauchner/siga-matricula/pull/1/files`
 - [ ] ⚠️ **Não fazer merge do PR**
 
@@ -231,7 +231,7 @@ Seguir o roteiro da seção 6 do gabarito, nesta ordem:
 - [ ] Cada apresentador cronometrou o próprio bloco **sozinho** e cabe no tempo
 - [ ] A squad rodou uma vez a rodada de reporte simulando **7 grupos em 7 minutos**
 - [ ] **Bruno (A5)** sabe preencher a matriz do quadro **sem consultar o gabarito**
-- [ ] **Bruno (A5)** ensaiou os slides novos **32-A, 32-B e 32-C** — são material inédito,
+- [ ] **Bruno (A5)** ensaiou os slides novos **33, 34 e 35** — são material inédito,
       e é o apresentador que não pode estourar o tempo
 - [ ] **Andreus (A4)** sabe que o bloco dele é o que se corta pela metade se a teoria atrasar
 - [ ] **Pietro (A1)** cronometrou a emenda abertura → por que revisar (são 9 min corridos,
@@ -252,7 +252,7 @@ Seguir o roteiro da seção 6 do gabarito, nesta ordem:
 | **Um grupo pareado ficou com 5** | Encolha **o par inteiro**: G3 com 5 obriga G6 com 5. Tire alguém do outro e mande para o G1. Simetria vale mais que tamanho — o rodapé de cada cartão diz qual papel acumula. |
 | **Grupo terminou cedo** | Pergunta: *"seu método deixaria passar que tipo de defeito? Procure exatamente esse tipo nos 5 minutos que sobraram."* |
 | **A rodada de reporte atrasa** | Cortar o item 4 do reporte (o que atrapalhou) e ir direto à revelação — os dados do quadro valem mais que os comentários. |
-| **Alguém diz "a IA acha tudo"** | Já foi respondido no slide 32-A. Volte nele: item 9 da Saída A (`_adicionar_lista_espera` sem commit) contra a linha 81 do código. |
+| **Alguém diz "a IA acha tudo"** | Já foi respondido no slide 33. Volte nele: item 9 da Saída A (`_adicionar_lista_espera` sem commit) contra a linha 81 do código. |
 
 ---
 

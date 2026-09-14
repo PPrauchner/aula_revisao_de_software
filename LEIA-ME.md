@@ -121,12 +121,12 @@ README do repo e no roteiro:
 ## Fronteira com a próxima aula
 
 Esta aula é o **mapa completo** do espectro de revisão. A **inspeção formal de Fagan**
-aparece deliberadamente como o extremo do espectro e como gancho (slides 16 e 33),
+aparece deliberadamente como o extremo do espectro e como gancho (slides 16 e 36),
 **sem detalhamento de fases** — esse é o tema da squad seguinte.
 
 ## Pré-requisitos de conteúdo
 
 A turma já viu conceitos básicos de Verificação e Validação e o panorama de IA
 generativa em V&V. A aula se apoia nos dois: revisão é posicionada como **verificação
-estática** e o bloco de IA (slides 30–32) retoma o panorama já apresentado, agora
+estática** e o bloco de IA (slides 30–35) retoma o panorama já apresentado, agora
 aplicado a uma tarefa concreta.

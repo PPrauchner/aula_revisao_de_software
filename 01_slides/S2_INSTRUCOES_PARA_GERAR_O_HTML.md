@@ -32,7 +32,7 @@
   ou HTML estilizado, não texto em `<pre>` — ficam ilegíveis no projetor
 - Tabelas: cabeçalho fixo, zebra, e nunca mais de 7 linhas por slide (quebre em dois)
 
-**O slide 34 é especial — o QR code do PR**
+**O slide 37 é especial — o QR code do PR**
 
 - É o slide que fica projetado durante os 30 min de atividade, então precisa ser legível
   do fundo da sala e funcionar como cartaz, não como slide de leitura
@@ -64,12 +64,12 @@ Requisitos: <cole a seção "Requisitos do deck" acima>
 Regras:
 - Cada bloco "## Slide N" vira um slide. O texto após "> 🎤" são notas do apresentador:
   não aparecem na tela, só no modo apresentador (tecla N).
-- Converta os diagramas em bloco de código ASCII (slides 4, 6, 11, 33) para SVG inline
+- Converta os diagramas em bloco de código ASCII (slides 4, 6, 11, 36) para SVG inline
   ou HTML estilizado — precisam ser legíveis a 5 metros de distância.
 - Preserve todas as tabelas, mas quebre em dois slides qualquer tabela com mais de
   7 linhas de dados, repetindo o título com "(cont.)".
 - Não invente conteúdo, não resuma e não corte nada do texto dos slides.
-- No slide 34, onde está o marcador "🔲 QR CODE GRANDE AQUI", gere o QR code da URL
+- No slide 37, onde está o marcador "🔲 QR CODE GRANDE AQUI", gere o QR code da URL
   <URL DA ABA "FILES CHANGED" DO PR> embutido como data URI (nada de imagem externa),
   ocupando pelo menos 40% da altura do slide, com a URL escrita por extenso embaixo.
 ```
@@ -81,7 +81,7 @@ Regras:
 
 - [ ] Abrir no **navegador do notebook que vai para a sala**, em tela cheia (F11)
 - [ ] Testar no **projetor real**, com a luz da sala acesa
-- [ ] Verificar que os slides 4, 6, 11 e 33 estão legíveis do fundo da sala
+- [ ] Verificar que os slides 4, 6, 11 e 36 estão legíveis do fundo da sala
 - [ ] Testar a tecla `N` (notas) e confirmar que as notas **não** aparecem na projeção
 - [ ] Salvar também um **PDF de backup** (imprimir → salvar como PDF) para o caso de o
       navegador falhar
