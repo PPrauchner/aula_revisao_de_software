@@ -2,7 +2,7 @@
 
 **Aula:** Revisão de Software: conceitos, tipos e papéis
 **Duração:** 30 min de revisão + 15 min de comparação
-**Formato:** 8 grupos (6 integrantes; dois grupos com 5)
+**Formato:** 7 grupos (6 integrantes; G1 e G2 com 5) · **Data:** terça-feira, 15/09/2026
 
 ---
 
@@ -24,7 +24,7 @@ O pipeline está verde. A pessoa que revisaria o PR está de férias.
 ## 2. O repositório
 
 ```
-🔗  github.com/PPrauchner/siga-matricula            ← preencher antes de imprimir
+🔗  github.com/PPrauchner/siga-matricula
 📄  PR #1 → aba "Files changed"      ← é AQUI que a revisão acontece
 ```
 

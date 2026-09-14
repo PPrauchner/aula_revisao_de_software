@@ -1,6 +1,8 @@
 # Quadro Comparativo — projetar / desenhar no quadro branco
 
-> A squad preenche ao vivo enquanto cada grupo reporta (1 min por grupo).
+> O **A5 (Bruno)** preenche ao vivo enquanto cada grupo reporta (1 min por grupo).
+> São **7 grupos** — desenhe as linhas só depois da chamada, porque faltas podem
+> reduzir o número de grupos (ver a tabela de degradação no roteiro).
 > Este quadro **é** a aula: é aqui que "tipos de revisão" deixa de ser lista de
 > definições e vira evidência.
 
@@ -15,25 +17,24 @@
 | G5 | Leitura por perspectiva | | | | |
 | G6 | Revisão técnica c/ checklist | | | | |
 | G7 | IA — prompt estruturado | | | | |
-| G8 | Pair review rotativo | | | | |
 | — | **UNIÃO de todos os grupos** | | | | |
 
 ## Parte 2 — Matriz de cobertura (marcar ✓ quem achou cada defeito)
 
-| Defeito | Categoria | G1 | G2 | G3 | G4 | G5 | G6 | G7 | G8 |
-|---|---|---|---|---|---|---|---|---|---|
-| D01 — limite 24 ≠ 28 | REQ | | | | | | | | |
-| D02 — choque de horário ausente | REQ | | | | | | | | |
-| D03 — INADIMPLENTE ignorado | REQ | | | | | | | | |
-| D04 — pré-requisito sem aprovação | LOG | | | | | | | | |
-| D05 — `<=` na vaga | LOG | | | | | | | | |
-| D06 — condição de corrida | LOG | | | | | | | | |
-| D07 — SQL injection | SEG | | | | | | | | |
-| D08 — CPF/token em log | SEG | | | | | | | | |
-| D09 — teste que não testa | TST | | | | | | | | |
-| D10 — regras sem teste | TST | | | | | | | | |
-| D11 — constante duplicada | MAN | | | | | | | | |
-| D12 — contrato inconsistente | MAN | | | | | | | | |
+| Defeito | Categoria | G1 | G2 | G3 | G4 | G5 | G6 | G7 |
+|---|---|---|---|---|---|---|---|---|
+| D01 — limite 24 ≠ 28 | REQ | | | | | | | |
+| D02 — choque de horário ausente | REQ | | | | | | | |
+| D03 — INADIMPLENTE ignorado | REQ | | | | | | | |
+| D04 — pré-requisito sem aprovação | LOG | | | | | | | |
+| D05 — `<=` na vaga | LOG | | | | | | | |
+| D06 — condição de corrida | LOG | | | | | | | |
+| D07 — SQL injection | SEG | | | | | | | |
+| D08 — CPF/token em log | SEG | | | | | | | |
+| D09 — teste que não testa | TST | | | | | | | |
+| D10 — regras sem teste | TST | | | | | | | |
+| D11 — constante duplicada | MAN | | | | | | | |
+| D12 — contrato inconsistente | MAN | | | | | | | |
 
 ## Parte 3 — As quatro perguntas de fechamento
 

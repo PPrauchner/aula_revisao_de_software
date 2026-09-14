@@ -153,22 +153,25 @@ discussão: severidade é julgamento, não fórmula.
 
 > ✅ = espera-se que o modo encontre · 🔸 = pode encontrar, depende do grupo ·
 > ❌ = dificilmente encontra
+>
+> ℹ️ **M6 (pair review) saiu da atividade** — a turma tem 7 grupos. A coluna foi
+> removida desta matriz para que ela case exatamente com o `A9_quadro_comparativo.md`.
 
-| Defeito | M1 Informal | M2 Walkthrough | M3 Checklist | M4-A IA genérica | M4-B IA estruturada | M5 Perspectiva | M6 Pair |
-|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| D01 limite 24≠28 | ❌ | 🔸 | ✅ | ❌ | ✅ | ✅ | ❌ |
-| D02 horário ausente | ❌ | 🔸 | ✅ | ❌ | ✅ | ✅ | ❌ |
-| D03 INADIMPLENTE | ❌ | 🔸 | ✅ | ❌ | ✅ | ✅ | 🔸 |
-| D04 pré-req sem aprovação | 🔸 | ✅ | ✅ | 🔸 | ✅ | ✅ | 🔸 |
-| D05 `<=` vaga | 🔸 | ✅ | ✅ | ✅ | ✅ | 🔸 | ✅ |
-| D06 corrida | ❌ | ❌ | 🔸 | ❌ | ❌ | 🔸 | ❌ |
-| D07 SQL injection | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| D08 CPF/token em log | 🔸 | ✅ | ✅ | ✅ | ✅ | ✅ | 🔸 |
-| D09 teste inútil | ❌ | ❌ | ✅ | ❌ | 🔸 | ✅ | ❌ |
-| D10 sem testes | 🔸 | 🔸 | ✅ | ❌ | ✅ | ✅ | 🔸 |
-| D11 constante duplicada | 🔸 | 🔸 | ✅ | ✅ | ✅ | ✅ | ✅ |
-| D12 contrato/except | 🔸 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| **Faixa esperada** | **2–5** | **5–8** | **9–12** | **4–6** | **9–11** | **9–11** | **4–7** |
+| Defeito | M1 Informal | M2 Walkthrough | M3 Checklist | M4-A IA genérica | M4-B IA estruturada | M5 Perspectiva |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|
+| D01 limite 24≠28 | ❌ | 🔸 | ✅ | ❌ | ✅ | ✅ |
+| D02 horário ausente | ❌ | 🔸 | ✅ | ❌ | ✅ | ✅ |
+| D03 INADIMPLENTE | ❌ | 🔸 | ✅ | ❌ | ✅ | ✅ |
+| D04 pré-req sem aprovação | 🔸 | ✅ | ✅ | 🔸 | ✅ | ✅ |
+| D05 `<=` vaga | 🔸 | ✅ | ✅ | ✅ | ✅ | 🔸 |
+| D06 corrida | ❌ | ❌ | 🔸 | ❌ | ❌ | 🔸 |
+| D07 SQL injection | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| D08 CPF/token em log | 🔸 | ✅ | ✅ | ✅ | ✅ | ✅ |
+| D09 teste inútil | ❌ | ❌ | ✅ | ❌ | 🔸 | ✅ |
+| D10 sem testes | 🔸 | 🔸 | ✅ | ❌ | ✅ | ✅ |
+| D11 constante duplicada | 🔸 | 🔸 | ✅ | ✅ | ✅ | ✅ |
+| D12 contrato/except | 🔸 | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Faixa esperada** | **2–5** | **5–8** | **9–12** | **4–6** | **9–11** | **9–11** |
 
 **Leituras que a squad deve extrair da matriz na hora:**
 
@@ -215,7 +218,7 @@ discussão: severidade é julgamento, não fórmula.
 |---|---|
 | Melhor grupo individual | 9 a 12 de 12 |
 | Pior grupo individual | 2 a 5 de 12 |
-| **União de todos os 8 grupos** | **11 ou 12 de 12** |
+| **União de todos os 7 grupos** | **11 ou 12 de 12** |
 | Defeito com maior chance de ninguém achar | **D06** (condição de corrida) |
 | Defeito que 100% dos grupos acham | **D07** (SQL injection) |
 | Falsos positivos nos grupos de IA sem triagem rigorosa | 2 a 5 |

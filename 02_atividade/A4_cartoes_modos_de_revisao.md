@@ -3,18 +3,23 @@
 > **Para a squad:** imprimir e recortar. Um cartão por grupo. Os grupos **não** devem
 > saber qual modo os outros receberam antes da rodada de comparação.
 
-## Distribuição sugerida (8 grupos)
+## Distribuição (7 grupos · 40 alunos)
 
-| Grupo | Modo | Nº ideal | Observação |
+| Grupo | Modo | Nº de integrantes | Observação |
 |---|---|---|---|
-| **G1** | M1 — Revisão informal (ad hoc) | 5 ou 6 | ✅ funciona com 5 integrantes |
-| **G2** | M2 — Walkthrough guiado pelo autor | 6 | |
-| **G3** | M3 — Revisão técnica com checklist | 6 | |
-| **G4** | M4-A — Revisão assistida por IA (**prompt genérico**) | 6 | |
-| **G5** | M5 — Leitura baseada em perspectiva | 6 | |
-| **G6** | M3 — Revisão técnica com checklist | 6 | ⭐ **duplicado de propósito** |
-| **G7** | M4-B — Revisão assistida por IA (**prompt estruturado**) | 6 | ⭐ **duplicado de propósito** |
-| **G8** | M6 — Pair review / over-the-shoulder | 5 ou 6 | ✅ funciona com 5 integrantes |
+| **G1** | M1 — Revisão informal (ad hoc) | **5** | grupo de controle; funciona com qualquer tamanho |
+| **G2** | M2 — Walkthrough guiado pelo autor | **5** | |
+| **G3** | M3 — Revisão técnica com checklist | **6** | 🔒 par controlado |
+| **G4** | M4-A — Revisão assistida por IA (**prompt genérico**) | **6** | 🔒 par controlado |
+| **G5** | M5 — Leitura baseada em perspectiva | **6** | 5 perspectivas + escriba |
+| **G6** | M3 — Revisão técnica com checklist | **6** | 🔒 ⭐ **duplicado de propósito** |
+| **G7** | M4-B — Revisão assistida por IA (**prompt estruturado**) | **6** | 🔒 ⭐ **duplicado de propósito** |
+
+> 🔒 **G3, G4, G6 e G7 têm tamanho travado em 6.** São os pares comparados na
+> revelação final; se um encolher, a comparação deixa de medir o método e passa a
+> medir o número de pessoas. Toda falta é absorvida por **G1 e G2**, nesta ordem.
+> Se for inevitável encolher um par, **encolha os dois juntos** — simetria vale
+> mais que tamanho.
 
 **Por que dois pares duplicados?**
 
@@ -70,7 +75,7 @@
 | Papel | Quantos | O que faz |
 |---|---|---|
 | **Autor** | 1 | Assume o papel do @dev.junior. Lê o código em voz alta e **explica a intenção de cada bloco**, como se defendesse o PR |
-| **Participantes** | 4 | Interrompem com perguntas. Não podem afirmar "isso está errado" — só podem **perguntar**: "o que acontece se...?", "por que aqui é `<=`?" |
+| **Participantes** | 3 | Interrompem com perguntas. Não podem afirmar "isso está errado" — só podem **perguntar**: "o que acontece se...?", "por que aqui é `<=`?" |
 | **Escriba** | 1 | Anota os pontos em que o autor **hesitou, se contradisse ou não soube responder** |
 
 **Procedimento**
@@ -84,6 +89,12 @@
 
 > Participante que afirmar um defeito em vez de perguntar perde a vez.
 > A técnica é: **a pergunta certa faz o autor achar o próprio defeito.**
+
+**Se o grupo tiver menos gente**
+
+> Tire dos **Participantes**. Autor e Escriba nunca saem. O piso do modo é **3**
+> (autor + 1 participante + escriba) — abaixo disso não há plateia e o walkthrough
+> vira leitura em voz alta.
 
 ⏱ **20 minutos.**
 
@@ -120,6 +131,12 @@
 - Ninguém propõe correção. Defeito registrado é defeito fechado.
 - O Moderador **não** revisa. O trabalho dele é o processo.
 
+**Se o grupo tiver 5**
+
+> O **Leitor acumula o papel de Revisor C** (seção 5 do checklist + contraditório).
+> Moderador e Escriba **nunca** acumulam nada: são justamente os papéis que a aula
+> quer mostrar como não-produtores de achado.
+
 ⏱ **20 minutos.**
 
 ---
@@ -152,6 +169,11 @@
 > **Nenhum achado da IA vai para a ata sem confirmação humana no código.**
 > Falso positivo aceito conta contra o grupo no quadro final.
 
+**Se o grupo tiver 5**
+
+> Três Triadores viram **dois**. Operador, Caçador de omissões e Escriba permanecem —
+> o Caçador é quem sustenta a pergunta "o que a IA **não** disse".
+
 ⏱ **20 minutos.**
 
 ---
@@ -173,6 +195,10 @@
 3. (5 min) O Caçador de omissões reporta o que a IA ainda deixou passar.
 
 **Restrição de ouro:** a mesma — nada entra na ata sem confirmação humana.
+
+**Se o grupo tiver 5**
+
+> A mesma regra do Modo 4-A: três Triadores viram dois.
 
 ⏱ **20 minutos.**
 
@@ -207,37 +233,10 @@
 > ele **anota mas não reporta** — quem reporta é o Atacante. A pergunta interessante
 > no final é: *quantos defeitos só uma perspectiva pegou?*
 
+**Se o grupo tiver 5**
+
+> A perspectiva **Mantenedor** acumula o Escriba/Moderador. É a lente com menos
+> achado exclusivo. **Cliente/Requisito** e **Operação** ficam intactas — elas carregam
+> os defeitos de conformidade e a condição de corrida.
+
 ⏱ **20 minutos.**
-
----
----
-
-# ✂️ CARTÃO — MODO 6
-## Pair Review / Over-the-shoulder rotativo
-
-> O modo mais barato e mais comum em equipes ágeis. Duas pessoas, uma tela.
-
-**Papéis**
-
-| Papel | Quantos | O que faz |
-|---|---|---|
-| **Piloto** | 1 por rodada | Controla a tela, rola o código, lê em voz alta |
-| **Copiloto** | 1 por rodada | Questiona, aponta, dita para a ata |
-| **Escriba** | 1 fixo | Registra os achados de todas as rodadas |
-| **Observador de processo** | 1 fixo | Cronometra as rodadas e anota **quando** cada defeito apareceu (minuto) |
-
-**Procedimento**
-
-1. Formem duplas rotativas: **4 rodadas de 5 minutos**. A cada rodada, troca-se a dupla
-   (quem era copiloto vira piloto; entra alguém novo).
-2. Cada nova dupla **continua de onde a anterior parou** — não recomeça do zero.
-3. O Escriba mantém a ata única do grupo.
-
-**Restrição de ouro**
-
-> Só duas pessoas olham a tela por vez. Os demais **não podem** ler o código enquanto
-> esperam a vez.
-> Pergunta de fechamento para este grupo: *a taxa de descoberta caiu ou subiu ao longo
-> das 4 rodadas?* Olhem os minutos anotados pelo Observador.
-
-⏱ **20 minutos (4 × 5 min).**
