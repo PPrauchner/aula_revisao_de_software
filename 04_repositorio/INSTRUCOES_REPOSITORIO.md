@@ -176,7 +176,7 @@ Sugestões, se quiserem manter o repositório vivo:
 2. **Abram um PR de correção** (`fix/rf-014-revisao`) com o conteúdo de
    `03_gabarito/G2_matricula_corrigido.py` e `G3_testes_corrigidos.py`. A turma vê o
    antes e o depois em diff.
-3. Só depois disso, façam o merge do #142 — ou fechem sem merge, o que é mais honesto.
+3. Só depois disso, façam o merge do #1 — ou fechem sem merge, o que é mais honesto.
 
 > Se optarem por publicar o gabarito, façam **depois** da aula. Um repositório público
 > com o gabarito dentro é encontrável por busca.

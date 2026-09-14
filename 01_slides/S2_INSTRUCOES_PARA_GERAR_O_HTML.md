@@ -37,7 +37,7 @@
 - É o slide que fica projetado durante os 30 min de atividade, então precisa ser legível
   do fundo da sala e funcionar como cartaz, não como slide de leitura
 - O QR code precisa ocupar **pelo menos 40% da altura do slide**
-- Aponte para a aba *Files changed*: `https://github.com/<org>/<repo>/pull/<n>/files`
+- Aponte para a aba *Files changed*: `https://github.com/PPrauchner/siga-matricula/pull/1/files`
 - Escreva a URL por extenso embaixo do QR, em fonte grande, para quem for digitar
 - Gere o QR **embutido como data URI** (PNG ou SVG inline). Nada de `<img src="https://...">`
   de gerador online: se a rede da sala cair, some justamente o slide que a turma precisa
