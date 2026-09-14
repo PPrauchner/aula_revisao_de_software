@@ -39,26 +39,27 @@ O pipeline está verde. A pessoa que revisaria o PR está de férias.
 | **PR #1 → Files changed** | O diff sob revisão: `matricula.py` e `test_matricula.py` |
 | `docs/RF-014.md` | Especificação do requisito — **a fonte da verdade** |
 | `CONTRIBUTING.md` | Padrão de codificação da equipe |
-| **Cartão de modo** (em papel) | **O método que o seu grupo vai aplicar** |
-| **Ata de revisão** (em papel) | A entrega do grupo |
+| **Portal da atividade** (QR do seu grupo) | **O método que o seu grupo vai aplicar**, e a ata |
 
-> ⚠️ **Cada grupo recebe um cartão de modo diferente.** Não troque de modo, não
-> "melhore" o método no meio do caminho, e não olhe o que o grupo do lado está fazendo.
-> A graça do exercício é justamente a comparação no final.
+> ⚠️ **Cada grupo recebe um QR diferente**, que abre um método de revisão diferente.
+> Não troque de modo, não "melhore" o método no meio do caminho, não abra o endereço de
+> outro grupo, e não olhe o que o grupo do lado está fazendo. A graça do exercício é
+> justamente a comparação no final.
 
 ## 3. O que fazer
 
-1. **(2 min)** Leiam o cartão do seu modo e **distribuam os papéis** ali descritos.
-   Todo mundo tem um papel. Escrevam os nomes na ata.
+1. **(2 min)** Abram o QR do grupo, leiam o cartão do seu modo e **distribuam os papéis**
+   ali descritos. Todo mundo tem um papel — os papéis já vêm listados na ata, falta o nome
+   de cada um ao lado.
 2. **(20 min)** Executem a revisão **exatamente como o cartão manda**. O cronômetro
    é público — quando fecharem 20 min, param, mesmo no meio de um achado.
-3. **(8 min)** Consolidem a **ata de revisão**: cada defeito recebe um ID, localização
-   (arquivo + linha), tipo, severidade e descrição. Ao final, levem os números para o
-   quadro no projetor.
+3. **(8 min)** Consolidem a **ata de revisão**, na própria página: cada defeito recebe um
+   ID, localização (arquivo + linha), tipo, severidade e descrição. Um notebook do grupo
+   preenche. Ao final, levem os números para o quadro no projetor.
 
 ## 4. Regras da revisão
 
-- **Não comentem no GitHub.** Os achados vão para a ata em papel. Se os grupos
+- **Não comentem no GitHub.** Os achados vão para a ata do grupo. Se os grupos
   comentarem no PR, todo mundo vê os achados de todo mundo e a comparação final morre.
 - **Ferramentas automáticas estão proibidas:** sem linter, sem análise estática
   (`ruff`, `bandit`, `pylint`), sem Copilot, sem assistente de IA.
@@ -91,5 +92,11 @@ Cada grupo reporta 4 números:
 
 ## 6. Entrega
 
-A **ata de revisão preenchida** (uma por grupo), entregue à professora ao final da aula.
+A **ata de revisão preenchida**, uma por grupo, em três passos na própria página:
+
+1. **Gerar a ata em PDF** — na caixa de impressão, escolham *Salvar como PDF*.
+2. **Enviar a ata** — abre o formulário da squad com o grupo de vocês já marcado.
+   Entrem com a **conta institucional**.
+3. Anexem o PDF salvo.
+
 Ela vale como registro de participação e é o artefato real que uma revisão produz.
