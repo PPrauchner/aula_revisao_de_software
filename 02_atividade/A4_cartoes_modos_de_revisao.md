@@ -1,6 +1,7 @@
 # Cartões dos Modos de Revisão
 
-> **Para a squad:** imprimir e recortar. Um cartão por grupo. Os grupos **não** devem
+> **Para a squad:** um cartão por grupo. Para imprimir, use os PDFs avulsos em
+> `pdf_impressao/cartoes/` — um arquivo de uma página por cartão, já nomeado pelo grupo. Os grupos **não** devem
 > saber qual modo os outros receberam antes da rodada de comparação.
 
 ## Distribuição (7 grupos · 40 alunos)

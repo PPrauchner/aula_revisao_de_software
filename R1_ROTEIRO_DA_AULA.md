@@ -211,7 +211,7 @@ Seguir o roteiro da seção 6 do gabarito, nesta ordem:
 
 - [ ] **7** × `A0_ENUNCIADO.md` (já com o link e o QR code)
 - [ ] **7** × `A6_ata_de_revisao.md`
-- [ ] **6 cartões** recortados de `A4_cartoes_modos_de_revisao.md` — M1, M2, M3 (**duas vias**), M4-A, M4-B, M5. O cartão M6 (pair review) **saiu**: a turma tem 7 grupos.
+- [ ] **6 cartões** de `02_atividade/pdf_impressao/cartoes/` — um arquivo de 1 página por cartão: M1, M2, M3 (**duas vias**), M4-A, M4-B, M5. O cartão M6 (pair review) **saiu**: a turma tem 7 grupos.
 - [ ] Imprima sempre para **7 grupos**, mesmo prevendo faltas. Cartão sobrando não custa nada; cartão faltando trava a aula.
 - [ ] 2 × `A5_checklist.md` (só para G3 e G6)
 - [ ] 2 × prompts de `A7_prompts_IA.md` (G4 recebe o PROMPT A, G7 o PROMPT B — **não trocar**)
