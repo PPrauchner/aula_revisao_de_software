@@ -1,105 +1,82 @@
 # Ordem de Impressão — aula de 15/09/2026
 
 **Turma:** 7 grupos · 40 alunos (G1 e G2 com 5) · **Squad:** 5
-**Fonte:** os PDFs em `02_atividade/pdf_impressao/` e `02_atividade/copia_impressa/pdf_impressao/`
 
-> As contagens de página abaixo foram lidas dos próprios PDFs. O **total é de
-> 81 folhas** em impressão só-frente, ou **59** seguindo a recomendação de duplex
-> com exceções (ver o fim do arquivo).
-
----
-
-## 1. Para todos os grupos
-
-| # | Arquivo | Pág. | Cópias | Folhas | Para quem |
-|---|---|:---:|:---:|:---:|---|
-| 1 | `pdf_impressao/A0_ENUNCIADO.pdf` | 2 | **7** | **14** | 1 por grupo |
-| 2 | `pdf_impressao/A6_ata_de_revisao.pdf` | 3 | **9** | **27** | 1 por grupo + **2 de reserva** |
-
-A ata é a entrega avaliada e é preenchida à mão sob pressão de tempo — as duas
-reservas cobrem rasura e folha perdida.
-
-**Subtotal: 41 folhas.**
+> A maior parte do material saiu do papel e foi para uma página web. **Restam 8 folhas**
+> de impressão obrigatória (enunciados + folha de QRs), mais o backup de rede caída, que
+> é decisão sua. O plano antigo eram 59 folhas.
 
 ---
 
-## 2. Cartões de modo — um por grupo
+## O que mudou
 
-Pasta: `pdf_impressao/cartoes/` · **um arquivo por cartão, 1 página cada**
+A atividade agora tem um **portal**, público e sem login:
 
-| Arquivo | Cópias | Para quem |
-|---|:---:|---|
-| `00_distribuicao_SQUAD.pdf` | 1 | **squad** (não vai para grupo nenhum) |
-| `cartao_M1_G1.pdf` — informal | 1 | G1 |
-| `cartao_M2_G2.pdf` — walkthrough | 1 | G2 |
-| `cartao_M3_G3-G6.pdf` — checklist | **2** | **G3 e G6** |
-| `cartao_M4A_G4.pdf` — IA, prompt genérico | 1 | G4 |
-| `cartao_M4B_G7.pdf` — IA, prompt estruturado | 1 | G7 |
-| `cartao_M5_G5.pdf` — perspectiva | 1 | G5 |
+```
+🔗  https://pprauchner.github.io/siga-matricula/
+```
 
-**Subtotal: 8 folhas** (7 arquivos + a segunda via do M3).
+Cada grupo abre o **próprio endereço** (`?g=1` até `?g=7`) e vê **apenas o que lhe cabe**:
+o cartão do seu modo, e o checklist ou o prompt quando for o caso. É o link que substitui
+o cartão virado para baixo e o envelope lacrado.
 
-> O grupo de destino está no **nome do arquivo** e cada cartão cabe em **uma folha**:
-> não há intervalo de páginas para acertar nem recorte a fazer. O
-> `A4_cartoes_modos_de_revisao.pdf` continua na pasta de cima como versão única, caso
-> você prefira imprimir tudo de uma vez.
-
-> O cartão **M6 (pair review) não existe mais** — foi cortado quando a turma passou a
-> ter 7 grupos. Se ele aparecer nos seus arquivos, eles foram gerados antes da mudança:
-> regere a partir de `A4_cartoes_modos_de_revisao.md`.
+| Material | Antes | Agora |
+|---|---|---|
+| Enunciado | 14 folhas | **continua em papel** |
+| Cartões de modo | 8 folhas | portal, `?g=N` |
+| Checklist (G3, G6) | 4 folhas | portal, dentro do `?g=3` e `?g=6` |
+| PROMPT A / PROMPT B | 2 folhas + envelopes | portal, com botão de copiar |
+| Ata | 27 folhas | formulário no portal → PDF → Google Forms |
+| Quadro comparativo | 2 folhas | quadro branco, como sempre foi |
+| Backup de rede caída | 24 folhas | **decisão sua** — ver o bloco 3 |
 
 ---
 
-## 3. Material restrito — não distribuir a mais
+## 1. Enunciado — para todos os grupos
 
-| # | Arquivo | Pág. | Cópias | Folhas | Para quem |
-|---|---|:---:|:---:|:---:|---|
-| 1 | `pdf_impressao/A5_checklist.pdf` | 2 | **2** | **4** | **só G3 e G6** |
-| 2 | `pdf_impressao/A7_prompts_IA.pdf` — só a pág. do **PROMPT A** | 1 | 1 | 1 | **só G4** |
-| 3 | `pdf_impressao/A7_prompts_IA.pdf` — só a pág. do **PROMPT B** | 1 | 1 | 1 | **só G7** |
-| 4 | `pdf_impressao/A9_quadro_comparativo.pdf` | 2 | 1 | **2** | **Bruno (A5)** |
+| Arquivo | Pág. | Cópias | Folhas |
+|---|:---:|:---:|:---:|
+| `02_atividade/pdf_impressao/A0_ENUNCIADO.pdf` | 2 | **7** | **7** (duplex) |
 
-**Subtotal: 8 folhas.**
-
-> O `A7` tem 3 páginas: PROMPT A, PROMPT B e as perguntas de fechamento. **Abra e anote
-> os intervalos exatos antes de imprimir** — a última página é da squad e não pode ir
-> junto com nenhum dos dois prompts.
-
-> ℹ️ **O `A8_saida_IA_planoB.pdf` não é mais impresso.** Ele é o plano B de internet
-> caída para G4 e G7. Se a rede cair no dia, o arquivo continua em
-> `02_atividade/pdf_impressao/` — abra no notebook e projete, ou passe o PDF aos dois
-> grupos. **Saída A é do G4, Saída B é do G7**, mesmo na tela.
-
-### 🔴 O erro mais caro da aula
-
-**PROMPT A é do G4. PROMPT B é do G7.** Trocar inverte o resultado do experimento, e
-ninguém percebe até o quadro comparativo — quando já não dá para desfazer. Envelopes
-**rotulados por fora com o número do grupo**, fechados, e conferidos por duas pessoas.
-A mesma regra vale para a Saída A e a Saída B, se a internet cair e vocês precisarem
-entregá-las digitalmente.
-
-Pelo mesmo motivo, o checklist só existe para G3 e G6: se vazar para outro grupo, a
-comparação de variabilidade entre revisores morre.
+É o único documento que fica na mesa o tempo todo, aberto, enquanto todo mundo mexe no
+notebook. Papel aqui é melhor que aba.
 
 ---
 
-## 4. Backup de contingência — só se a rede cair
+## 2. Folha de QRs — o que a A2 distribui
 
-Pasta `02_atividade/copia_impressa/pdf_impressao/`
+Não é um PDF do repositório: **é gerada na hora**, para conter o endereço certo.
 
-| Arquivo | Pág. |
-|---|:---:|
-| `RF-014.pdf` | 2 |
-| `CONTRIBUTING.pdf` | 1 |
-| `matricula_NUMERADO.pdf` | 3 |
-| `test_matricula_NUMERADO.pdf` | 2 |
-| **Um jogo completo** | **8** |
+1. Abra **`https://pprauchner.github.io/siga-matricula/?painel=squad`**
+2. Confira o link no campo do topo (deve ser `https://pprauchner.github.io/siga-matricula/`)
+3. Clique em **Imprimir a folha de QRs** → **1 folha**
+4. Recorte nos tracejados: sete etiquetas, uma por grupo, com o número impresso em cada
 
-**Imprimir 3 jogos = 24 folhas.**
+**Subtotal: 1 folha.**
 
-É o item mais caro da lista e o que você mais vai querer ter: sem ele, rede caída
-significa 40 alunos sem o artefato sob revisão. Os números de linha desta cópia são os
-mesmos que o gabarito cita.
+> 🔴 **Esta tela não pode ser projetada.** Ela mostra qual modo caiu em qual grupo — é o
+> equivalente a abrir todos os envelopes na frente da turma.
+
+---
+
+## 3. Backup de contingência — só se a rede cair
+
+Pasta `02_atividade/copia_impressa/pdf_impressao/`: `RF-014.pdf` (2), `CONTRIBUTING.pdf` (1),
+`matricula_NUMERADO.pdf` (3), `test_matricula_NUMERADO.pdf` (2) — **8 páginas por jogo**.
+
+A conta mudou de natureza. Antes, rede caída custava o artefato sob revisão. Agora custa
+**o artefato e todo o material da atividade**, porque os cartões, o checklist e os prompts
+também vivem na rede.
+
+| Se você quer | Imprima | Folhas (duplex) |
+|---|---|:---:|
+| Seguro completo | 3 jogos | 12 |
+| Seguro mínimo (projetar do notebook) | 1 jogo | 4 |
+| Sem seguro | — | 0 |
+
+**Se optar por não imprimir:** salve os PDFs no notebook **antes da aula** — os do backup,
+o `A4_cartoes_modos_de_revisao.pdf`, o `A5_checklist.pdf` e o `A7_prompts_IA.pdf`. Rede
+caída com os arquivos no disco ainda é uma aula; sem eles, não é.
 
 ---
 
@@ -107,41 +84,32 @@ mesmos que o gabarito cita.
 
 | Bloco | Folhas |
 |---|:---:|
-| 1 · Todos os grupos | 41 |
-| 2 · Cartões de modo | 8 |
-| 3 · Material restrito | 8 |
-| 4 · Backup | 24 |
-| **TOTAL (só-frente)** | **81** |
-
-**Recomendação:** frente e verso em tudo, **menos** nos cartões de modo e na ata. Os
-cartões ficam na mesa o tempo todo e são consultados de relance; a ata é preenchida à
-mão e o verso atrapalha. Com essas duas exceções, o total cai para **59 folhas**:
-
-| Bloco | Modo | Folhas |
-|---|---|:---:|
-| Enunciados (7 × 2 pág.) | duplex | 7 |
-| Atas (9 × 3 pág.) | **só-frente** | 27 |
-| Cartões de modo | **só-frente** | 8 |
-| Checklists (2 × 2 pág.) | duplex | 2 |
-| PROMPT A · PROMPT B | só-frente | 2 |
-| Quadro comparativo | duplex | 1 |
-| Backup (3 × 8 pág.) | duplex | 12 |
-| **TOTAL** | | **59** |
+| 1 · Enunciados (duplex) | 7 |
+| 2 · Folha de QRs | 1 |
+| 3 · Backup, se quiser | 0, 4 ou 12 |
+| **TOTAL** | **8 a 20** |
 
 ---
 
 ## Conferência antes de sair da gráfica
 
-- [ ] **7** enunciados, e o **QR está impresso e legível** (não é um quadrado preto)
-- [ ] **9** atas
-- [ ] **7** cartões — e são **dois** M3, nenhum M6
-- [ ] **2** checklists
-- [ ] **2** envelopes rotulados: **G4 · PROMPT A** e **G7 · PROMPT B**
-- [ ] **1** quadro comparativo, na mão do Bruno
-- [ ] **3** jogos de backup
-- [ ] **Escanear o QR do enunciado impresso com um celular** — leva ao
-      `github.com/PPrauchner/siga-matricula/pull/1/files`
+- [ ] **7** enunciados, e o **QR do enunciado está legível** (não é um quadrado preto)
+- [ ] **1** folha de QRs, recortada em **7** etiquetas, cada uma com o número do grupo visível
+- [ ] Backup, na quantidade que você decidiu
+- [ ] **Escanear com um celular o QR do G1 recortado** — tem que abrir o cartão do
+      Modo 1, não a tela de escolha de grupo
+- [ ] **Escanear o QR do enunciado** — leva ao `github.com/PPrauchner/siga-matricula/pull/1/files`
 
-> O último item é o único que não dá para verificar de outro jeito. A matriz do QR já
-> foi conferida contra a URL e contra o QR do slide 37 — falta só provar que uma câmera
-> real lê o papel impresso.
+> Os dois últimos itens são os únicos que não dão para verificar de outro jeito: a matriz
+> do QR pode estar certa e a câmera não ler o papel impresso.
+
+---
+
+## Teste de mesa do portal — fazer uma vez, na véspera
+
+- [ ] `?g=4` mostra **PROMPT A**; `?g=7` mostra **PROMPT B**. Trocado, o experimento inverte.
+- [ ] `?g=3` e `?g=6` mostram o checklist; **nenhum outro grupo** mostra.
+- [ ] O botão **Enviar a ata** abre o formulário com o grupo **já marcado**.
+- [ ] **Gerar a ata em PDF** sai só com a ata — sem o cartão de modo nem o checklist junto.
+- [ ] A página abre em **janela anônima, sem login** (é o que o aluno tem).
+- [ ] A página abre no **celular** — parte da turma vai preencher a ata assim.

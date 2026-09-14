@@ -106,21 +106,30 @@ manda fazer o quê agora?"* ou *"vocês abriram o documento de requisitos?"*.
 - A5 explica em 90 segundos: **mesmo PR, 7 grupos, modos diferentes, quadro no final.**
 - **Projete o slide 37 com o QR code do repositório** e deixe-o no ar durante toda a
   atividade. A turma abre o PR direto no notebook — não precisa de conta no GitHub.
-- A1 distribui o que é papel: `A0_ENUNCIADO` e `A6_ata` para todos.
-- A3 entrega o `A5_checklist` **só para G3 e G6** — os dois ao mesmo tempo, para que
+- A1 distribui o `A0_ENUNCIADO` impresso — um por grupo.
+- A2 distribui as **etiquetas de QR**, uma por grupo, com o número do grupo impresso nela.
+  Cada QR abre o **portal da atividade** já no material daquele grupo:
+  cartão de modo, e o checklist (G3, G6) ou o prompt (G4, G7) embutidos na página.
+  **Confira o número da etiqueta contra o grupo antes de entregar.**
+- A3 acompanha G3 e G6 abrindo a página: os dois ao mesmo tempo, para que
   ninguém comece antes do outro.
-- A2 distribui os **cartões de modo** — um por grupo, **virados para baixo**, para que
-  ninguém veja o do vizinho — e os prompts de `A7_prompts_IA.md` a G4 (**PROMPT A**) e
-  G7 (**PROMPT B**), em envelopes separados. **Não trocar.**
+- 🔴 **O erro mais caro continua sendo o mesmo, só mudou de suporte:** a etiqueta do G4
+  leva ao PROMPT A e a do G7 ao PROMPT B. Trocar inverte o experimento e ninguém percebe
+  até o quadro comparativo. Duas pessoas conferem as sete etiquetas antes de sair da sala.
+- **A ata é preenchida na própria página** e entregue pelo formulário — ninguém escreve
+  ata à mão. Um notebook por grupo preenche; o rascunho fica guardado no navegador dele.
 - A5 escreve no quadro: **"20:00"** e a estrutura do quadro comparativo, já com o
   número de grupos que de fato existe hoje (ver contingência de faltas).
-- 🗣️ **Diga em voz alta as duas regras que protegem o exercício:**
-  *"ninguém comenta no GitHub — os achados vão para a ata"* e
-  *"nada de linter, análise estática ou IA, exceto quem recebeu o cartão de IA."*
+- 🗣️ **Diga em voz alta as três regras que protegem o exercício:**
+  *"ninguém comenta no GitHub — os achados vão para a ata"*,
+  *"nada de linter, análise estática ou IA, exceto quem recebeu o cartão de IA"* e
+  *"cada grupo abre só o próprio QR — trocar o número no endereço estraga a comparação
+  para os dois grupos"*.
 
 ### 🕐 00:43 – 00:45 · Distribuição de papéis dentro dos grupos — 2 min
 
-- A3 circula garantindo que **todo integrante tem um papel escrito na ata**.
+- A3 circula garantindo que **todo integrante tem um papel escrito na ata** — os papéis
+  do modo já vêm preenchidos na página; falta só o nome ao lado de cada um.
 - **G1 e G2 são os grupos de 5.** Ambos os modos absorvem isso sem perda: o M1 não tem
   papéis fixos, e o M2 roda com autor + 3 participantes + escriba.
 - Se algum grupo travado ficar com 5, o rodapé do próprio cartão diz qual papel acumula.
@@ -209,17 +218,30 @@ Seguir o roteiro da seção 6 do gabarito, nesta ordem:
 
 ### Na véspera — impressões
 
+> Cartões, checklist, prompts e ata **saíram do papel**: vivem no portal
+> `https://pprauchner.github.io/siga-matricula/`. Detalhe e conferência em
+> `R2_ORDEM_DE_IMPRESSAO.md`.
+
 - [ ] **7** × `A0_ENUNCIADO.md` (já com o link e o QR code)
-- [ ] **7** × `A6_ata_de_revisao.md`
-- [ ] **6 cartões** de `02_atividade/pdf_impressao/cartoes/` — um arquivo de 1 página por cartão: M1, M2, M3 (**duas vias**), M4-A, M4-B, M5. O cartão M6 (pair review) **saiu**: a turma tem 7 grupos.
-- [ ] Imprima sempre para **7 grupos**, mesmo prevendo faltas. Cartão sobrando não custa nada; cartão faltando trava a aula.
-- [ ] 2 × `A5_checklist.md` (só para G3 e G6)
-- [ ] 2 × prompts de `A7_prompts_IA.md` (G4 recebe o PROMPT A, G7 o PROMPT B — **não trocar**)
-- [ ] 2 × `A8_saida_IA_planoB.md` — **Saída A para G4, Saída B para G7**, envelopes separados
+- [ ] **1** folha de QRs — gerada em `?painel=squad`, botão *Imprimir a folha de QRs*,
+      recortada em **7 etiquetas** com o número do grupo visível em cada uma
 - [ ] 1 × `A9_quadro_comparativo.md` para o A5 (Bruno)
-- [ ] **Backup impresso**, 2 ou 3 jogos, da pasta `02_atividade/copia_impressa/`
+- [ ] **Backup impresso** da pasta `02_atividade/copia_impressa/`
       (`RF-014.md`, `CONTRIBUTING.md`, `matricula_NUMERADO.txt`, `test_matricula_NUMERADO.txt`)
-      — só para o caso de a rede da sala cair
+      — quantos jogos você quiser, entre 0 e 3. Rede caída agora custa **o artefato e
+      o material da atividade**, porque os dois estão na rede.
+- [ ] Se optar por não imprimir o backup: **salve os PDFs no notebook** —
+      `copia_impressa/`, `A4_cartoes_modos_de_revisao.pdf`, `A5_checklist.pdf` e
+      `A7_prompts_IA.pdf`
+
+### Na véspera — teste do portal
+
+- [ ] `?g=4` mostra **PROMPT A** e `?g=7` mostra **PROMPT B**
+- [ ] `?g=3` e `?g=6` mostram o checklist; nenhum outro grupo mostra
+- [ ] **Enviar a ata** abre o formulário com o grupo já marcado
+- [ ] **Gerar a ata em PDF** sai só com a ata
+- [ ] A página abre em **janela anônima** e no **celular**
+- [ ] Um QR recortado, escaneado com o celular, abre o cartão do grupo certo
 
 **Digital**
 
@@ -243,7 +265,7 @@ Seguir o roteiro da seção 6 do gabarito, nesta ordem:
 
 | Se acontecer | O que fazer |
 |---|---|
-| **Internet cai** | Duas coisas: entregar `A8_saida_IA_planoB.md` aos grupos de IA (Saída A ao G4, Saída B ao G7) **e** distribuir o backup impresso de `copia_impressa/`. A atividade não muda em nada — só perde o diff colorido. |
+| **Internet cai** | Agora cai o portal junto. Projete `A4_cartoes_modos_de_revisao.pdf` só **na página do modo de cada grupo** (ou passe o notebook de mesa em mesa), entregue `A5_checklist.pdf` a G3/G6 e `A8_saida_IA_planoB.md` aos grupos de IA (**Saída A ao G4, Saída B ao G7**), e distribua o backup de `copia_impressa/`. **A ata volta a ser manuscrita:** papel pautado serve, com os campos do `A6_ata_de_revisao.md` ditados em voz alta pelo A5. |
 | **A rede da sala é lenta / GitHub bloqueado** | Abra o PR no seu notebook, projete, e distribua o backup impresso. Os grupos revisam no papel numerado. |
 | **Um grupo começa a comentar no PR** | Peça para apagar. Se já estiver visível, avise a turma em voz alta que aqueles comentários não valem e ninguém deve lê-los. |
 | **Alguém rodou um linter mesmo assim** | Não brigue: peça que marquem na ata quais achados vieram da ferramenta. Na comparação, esse grupo vira um dado a mais. |
