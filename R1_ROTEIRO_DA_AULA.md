@@ -199,7 +199,7 @@ Seguir o roteiro da seção 6 do gabarito, nesta ordem:
       PR continua com **2 arquivos** (`matricula.py` e `test_matricula.py`) e nada mais
 - [ ] Abrir o repositório em **janela anônima**, sem login: repo, PR e aba *Files changed*
 - [ ] Rodar a verificação anti-spoiler do `git log` e do `git grep`
-- [ ] Gerar o QR code do PR e colar no **slide 34** e no `A0_ENUNCIADO` —
+- [x] QR code gerado e embutido no **slide 34** (deck HTML) e no `A0_ENUNCIADO` (`02_atividade/qr_pr1.png`) —
       `https://github.com/PPrauchner/siga-matricula/pull/1/files`
 - [ ] ⚠️ **Não fazer merge do PR**
 

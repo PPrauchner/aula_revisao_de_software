@@ -28,7 +28,9 @@ O pipeline está verde. A pessoa que revisaria o PR está de férias.
 📄  PR #1 → aba "Files changed"      ← é AQUI que a revisão acontece
 ```
 
-*(colar QR code aqui)*
+<img src="qr_pr1.png" alt="QR code para a aba Files changed do PR #1" width="220">
+
+`https://github.com/PPrauchner/siga-matricula/pull/1/files`
 
 **Não é preciso ter conta no GitHub.** Vocês só vão ler.
 
