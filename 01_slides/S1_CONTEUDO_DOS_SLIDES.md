@@ -6,26 +6,34 @@
 >
 > **Convenção visual sugerida:** fundo claro, uma ideia por slide, no máximo 6 linhas
 > de texto. Os slides 11, 17, 33 e 36 são os "slides-âncora" — a turma volta a eles.
+>
+> **Turma:** 7 grupos, 40 alunos (G1 e G2 com 5). **Squad de 5:** A1 Pietro ·
+> A2 Lorenzo · A3 Inaurrara · A4 Andreus · A5 Bruno. **Aula em 15/09/2026.**
+> Os slides **32-A, 32-B e 32-C** são novos — não estavam na versão de 6 apresentadores.
 
 ---
 
-# BLOCO 1 — Abertura (A1) · slides 1–4 · 5 min
+# BLOCO 1a — Abertura (A1 · Pietro) · slides 1–4 · 4 min
 
 ## Slide 1 — Capa
 
 **Revisão de Software**
 *conceitos, tipos e papéis*
 
-Disciplina · Squad [nomes dos 6] · [data]
+Verificação e Validação de Software · 15 de setembro de 2026
+
+Pietro Mendes Prauchner · Lorenzo Ponsi Ficher · Inaurrara Flores Rozado ·
+Andreus Dean Ferreira Almeida Rodrigues Vargas · Bruno da Silva Rocha
 
 > 🎤 Não gaste mais de 15 segundos aqui. A aula começa no slide 2.
+> Não leia os nomes em voz alta — eles estão na tela.
 
 ---
 
-## Slide 2 — O Pull Request #142
+## Slide 2 — O Pull Request #1
 
 ```
-PR #142 · feat(matricula): implementa RF-014
+PR #1 · feat(matricula): implementa RF-014
 Autor: @dev.junior
 Pipeline: ✅ verde        Testes: ✅ 2/2 passando
 
@@ -48,7 +56,7 @@ Pipeline: ✅ verde        Testes: ✅ 2/2 passando
 | | |
 |---|---|
 | **40 min** | Conceitos, tipos e papéis |
-| **30 min** | Vocês revisam o PR #142 — cada grupo com um **método diferente** |
+| **30 min** | Vocês revisam o PR #1 — cada grupo com um **método diferente** |
 | **15 min** | Comparamos os resultados no quadro |
 | **5 min** | O que isso significa |
 
@@ -84,7 +92,11 @@ Aplica-se a **qualquer artefato**: requisito, arquitetura, código, teste, manua
 
 ---
 
-# BLOCO 2 — Por que revisar (A2) · slides 5–9 · 7 min
+# BLOCO 1b — Por que revisar (A1 · Pietro) · slides 5–9 · 5 min
+
+> ⚠️ **Mesmo apresentador do bloco anterior.** Não há troca de pessoa aqui: a
+> pergunta *"mergeia?"* do slide 4 emenda direto no custo do defeito. São 9 minutos
+> corridos. O trecho a falar mais rápido é a **eficácia de remoção de defeitos**.
 
 ## Slide 5 — Definição
 
@@ -180,7 +192,7 @@ Além de achar defeito, revisão produz:
 
 ---
 
-# BLOCO 3 — Tipos de revisão (A3) · slides 10–17 · 9 min
+# BLOCO 2 — Tipos de revisão (A2 · Lorenzo) · slides 10–17 · 8 min
 
 ## Slide 10 — Três eixos para classificar
 
@@ -321,7 +333,7 @@ A **IEEE Std 1028** define formalmente **cinco** tipos de revisão:
 
 ---
 
-# BLOCO 4 — Papéis (A4) · slides 18–23 · 8 min
+# BLOCO 3 — Papéis (A3 · Inaurrara) · slides 18–23 · 8 min
 
 ## Slide 18 — Por que papéis, e não "todo mundo olha"
 
@@ -409,7 +421,10 @@ Revisão sem ata é conversa. A ata é o que permite acompanhar, medir e melhora
 
 ---
 
-# BLOCO 5 — Como se revisa bem (A5) · slides 24–29 · 7 min
+# BLOCO 4 — Como se revisa bem (A4 · Andreus) · slides 24–29 · 7 min
+
+> ⚠️ **É este o bloco que se corta pela metade se a teoria atrasar** — mantendo só
+> checklist e os números de lote/ritmo.
 
 ## Slide 24 — O achado mais consistente da pesquisa
 
@@ -472,7 +487,7 @@ tipos de defeito com o mesmo número de pessoas.
 *(Faixas consolidadas a partir de estudos empíricos de larga escala em revisão de código;
 trate como ordem de grandeza, não como precisão.)*
 
-> 🎤 Aponte a ironia: o PR #142 adiciona ~150 linhas e os grupos terão **20 minutos**.
+> 🎤 Aponte a ironia: o PR #1 adiciona ~150 linhas e os grupos terão **20 minutos**.
 > Está dentro dos limites. Ainda assim ninguém vai achar tudo.
 
 ---
@@ -504,7 +519,7 @@ E marca explicitamente o que é **bloqueante** e o que é **sugestão**.
 
 ---
 
-# BLOCO 6 — IA em revisão + gancho (A6) · slides 30–33 · 4 min
+# BLOCO 5 — IA em revisão + gancho (A5 · Bruno) · slides 30–33 · 8 min
 
 ## Slide 30 — Onde a IA entra
 
@@ -551,20 +566,83 @@ Você aceita a lista porque veio formatada, confiante e completa.
 
 ---
 
+## Slide 32-A — A IA errando, ao vivo
+
+**Saída de IA, item 9** — gerada sobre este mesmo código:
+
+> *"A função `_adicionar_lista_espera` insere o registro mas **não faz commit** da
+> transação, então a inserção é perdida."*
+
+**Abra `matricula.py`, linha 81.** O commit está lá.
+
+A IA não errou o julgamento. Ela **descreveu um código que não existe** — com a mesma
+confiança, o mesmo tom e a mesma formatação dos achados que estavam certos.
+
+**Não há sinal no texto que distinga o achado verdadeiro do inventado.**
+O único filtro é alguém abrir o arquivo.
+
+> 🎤 Projete o item e o código lado a lado. Deixe a turma achar a linha 81 sozinha —
+> 20 segundos de silêncio valem mais que a explicação. Só depois diga a frase em negrito.
+
+---
+
+## Slide 32-B — 💡 A IA pode ser o *moderador* de uma revisão?
+
+*(volte ao slide 22 — os papéis da IEEE 1028)*
+
+| Papel | A IA consegue? | Por quê |
+|---|---|---|
+| **Revisor** | sim, parcialmente | produz achado; é o que ela faz |
+| **Leitor** | sim | percorre o artefato em ordem, sem pular |
+| **Escriba** | sim | registra e formata bem |
+| **Autor** | não | não teve intenção; não pode explicar a sua |
+| **Moderador** | **não** | é o único papel que **não produz achado** — ele responde pelo **processo**, decide quando a revisão termina e **presta contas** do resultado |
+
+**Um modelo não pode responder por um processo.** Pode preencher todos os papéis que
+produzem texto, e nenhum dos que produzem responsabilidade.
+
+> 🎤 Deixe a turma responder antes de abrir a tabela. Alguém vai dizer "sim, ela
+> organiza bem" — aí você pergunta: *"e quando der errado, quem responde?"*
+
+---
+
+## Slide 32-C — Quem revisa o revisor
+
+A revisão assistida **não elimina trabalho: ela desloca o trabalho.**
+
+```
+   Sem IA  →  ler o código  →  achar  →  registrar
+   Com IA  →  escrever o prompt  →  ler a saída  →  VERIFICAR cada item  →  registrar
+                                                   └── é aqui que mora o custo real
+```
+
+- Achado não verificado no código **não é achado** — é um palpite com formatação boa.
+- Verificar exige saber revisar. **Uma equipe que nunca revisou não sabe quando a IA
+  está errada** — e é exatamente ela que mais confia na saída.
+- O tempo de triagem é parte do custo do método. Quem não conta esse tempo acha que
+  a revisão assistida é grátis.
+
+> 🎤 Avise: *"daqui a vinte minutos, dois grupos desta sala vão viver isso. Prestem
+> atenção no que eles disserem sobre quanto tempo gastaram **conferindo** a IA."*
+> É o gancho direto para a revelação G4 vs G7 no fim da aula.
+
+---
+
 ## Slide 33 — ⭐ Onde estamos, e onde a próxima aula entra
 
 ```
   Revisão      Pair       Walkthrough   Revisão     Inspeção      Auditoria
   informal     review                   técnica     formal
   ─────────────────────────────────────────────────────────────────────▶
-      ▲          ▲            ▲            ▲            ▲
-      │          │            │            │            │
-    G1, G4     G8           G2         G3, G5, G6, G7   PRÓXIMA AULA
+      ▲                       ▲            ▲            ▲
+      │                       │            │            │
+    G1, G4                  G2         G3, G5, G6, G7   PRÓXIMA AULA
                                                         (Fagan)
 ```
 
 **Hoje:** o mapa inteiro — conceitos, tipos, papéis, e a experiência de aplicar cinco
-pontos diferentes deste espectro.
+pontos diferentes deste espectro. *Pair review vocês não praticaram — é o mais comum no
+mercado e o menos formal de todos.*
 **Próxima aula:** o extremo direito, levado a sério.
 
 ---
@@ -573,20 +651,20 @@ pontos diferentes deste espectro.
 
 ## Slide 34 — A atividade: Campeonato de Revisão
 
-**O mesmo PR #142. Oito grupos. Métodos diferentes.**
+**O mesmo PR #1. Sete grupos. Métodos diferentes.**
 
 1. Cada grupo recebe um **cartão de modo** — não mostre para os outros grupos
 2. **2 min** para distribuir os papéis que o cartão define
 3. **20 min** de revisão, seguindo o cartão à risca
 4. **5 min** para fechar a **ata de revisão** — que é entregue à professora
 
-**No repositório:** PR #142 (aba *Files changed*) · `docs/RF-014.md` · `CONTRIBUTING.md`
+**No repositório:** PR #1 (aba *Files changed*) · `docs/RF-014.md` · `CONTRIBUTING.md`
 **Em papel:** cartão do modo · ata de revisão
 
 **Sem conta no GitHub, sem comentar no PR, sem linter e sem IA** — exceto os grupos que receberam o cartão de revisão assistida.
 
 > 🔲 **QR CODE GRANDE AQUI** — apontando direto para a aba *Files changed* do PR:
-> `https://github.com/<org>/<repo>/pull/<n>/files`
+> `https://github.com/PPrauchner/siga-matricula/pull/1/files`
 > Escreva a URL curta por extenso embaixo do QR, para quem for digitar.
 
 > 🎤 **Este slide fica no ar durante toda a atividade.** É o único jeito de um grupo
@@ -619,9 +697,9 @@ pontos diferentes deste espectro.
 
 *(slide preenchido AO VIVO — projetar a tabela em branco de `A9_quadro_comparativo.md`)*
 
-| Defeito | G1 | G2 | G3 | G4 | G5 | G6 | G7 | G8 |
-|---|---|---|---|---|---|---|---|---|
-| D01 … D12 | | | | | | | | |
+| Defeito | G1 | G2 | G3 | G4 | G5 | G6 | G7 |
+|---|---|---|---|---|---|---|---|
+| D01 … D12 | | | | | | | |
 
 > 🎤 **Não revele o gabarito antes de preencher.** A tabela cheia de buracos é o
 > argumento visual da aula.

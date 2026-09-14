@@ -184,17 +184,21 @@ body.notes-on #notes{display:block}
   <div class="rule"></div>
   <h1>Revisão de Software</h1>
   <div class="sub">conceitos, tipos e papéis</div>
-  <div class="meta">Disciplina · Squad [nomes dos 6] · [data]</div>
-  <div class="notes" hidden>Não gaste mais de 15 segundos aqui. A aula começa no slide 2.</div>
+  <div class="meta">Verificação e Validação de Software &nbsp;·&nbsp; 15 de setembro de 2026</div>
+  <div class="meta" style="margin-top:.9em;line-height:1.8">
+    Pietro Mendes Prauchner &nbsp;·&nbsp; Lorenzo Ponsi Ficher &nbsp;·&nbsp; Inaurrara Flores Rozado<br>
+    Andreus Dean Ferreira Almeida Rodrigues Vargas &nbsp;·&nbsp; Bruno da Silva Rocha
+  </div>
+  <div class="notes" hidden>Não gaste mais de 15 segundos aqui. A aula começa no slide 2. Não leia os nomes em voz alta — eles estão na tela.</div>
 </section>
 
 <!-- ===================== 2 ===================== -->
-<section class="slide" data-title="O Pull Request #142">
+<section class="slide" data-title="O Pull Request #1">
   <div class="kicker">Bloco 1 · Abertura</div>
-  <h1>O Pull Request #142</h1>
+  <h1>O Pull Request #1</h1>
   <div class="body">
     <div class="pr">
-      <div class="head">PR #142 · feat(matricula): implementa RF-014</div>
+      <div class="head">PR #1 · feat(matricula): implementa RF-014</div>
       <div class="row">Autor: @dev.junior</div>
       <div class="row">Pipeline: <span class="ok">✅ verde</span> &nbsp;&nbsp;&nbsp; Testes: <span class="ok">✅ 2/2 passando</span></div>
       <div class="msg">“Implementei o RF-014 conforme combinado na daily.<br>
@@ -216,7 +220,7 @@ body.notes-on #notes{display:block}
         <thead><tr><th>Tempo</th><th>Etapa</th></tr></thead>
         <tbody>
           <tr><td><strong>40 min</strong></td><td>Conceitos, tipos e papéis</td></tr>
-          <tr><td><strong>30 min</strong></td><td>Vocês revisam o PR #142 — cada grupo com um <strong>método diferente</strong></td></tr>
+          <tr><td><strong>30 min</strong></td><td>Vocês revisam o PR #1 — cada grupo com um <strong>método diferente</strong></td></tr>
           <tr><td><strong>15 min</strong></td><td>Comparamos os resultados no quadro</td></tr>
           <tr><td><strong>5 min</strong></td><td>O que isso significa</td></tr>
         </tbody>
@@ -754,7 +758,7 @@ body.notes-on #notes{display:block}
     </div>
     <p class="small"><em>(Faixas consolidadas a partir de estudos empíricos de larga escala em revisão de código; trate como ordem de grandeza, não como precisão.)</em></p>
   </div>
-  <div class="notes" hidden>Aponte a ironia: o PR #142 adiciona ~150 linhas e os grupos terão <strong>20 minutos</strong>. Está dentro dos limites. Ainda assim ninguém vai achar tudo.</div>
+  <div class="notes" hidden>Aponte a ironia: o PR #1 adiciona ~150 linhas e os grupos terão <strong>20 minutos</strong>. Está dentro dos limites. Ainda assim ninguém vai achar tudo.</div>
 </section>
 
 <!-- ===================== 28 ===================== -->
@@ -801,7 +805,7 @@ body.notes-on #notes{display:block}
 
 <!-- ===================== 30 ===================== -->
 <section class="slide" data-title="Onde a IA entra">
-  <div class="kicker">Bloco 6 · IA em revisão</div>
+  <div class="kicker">Bloco 5 · IA em revisão</div>
   <h1>Onde a IA entra</h1>
   <div class="body">
     <p class="lead">A revisão assistida por LLM ocupa hoje um lugar novo no espectro do slide 11: <strong>custo quase zero, disponibilidade imediata, cobertura ampla, confiabilidade variável.</strong></p>
@@ -813,7 +817,7 @@ body.notes-on #notes{display:block}
 
 <!-- ===================== 31 ===================== -->
 <section class="slide" data-title="O perfil de acerto">
-  <div class="kicker">Bloco 6 · IA em revisão</div>
+  <div class="kicker">Bloco 5 · IA em revisão</div>
   <h1>O perfil de acerto</h1>
   <div class="body">
     <div class="tablewrap">
@@ -834,7 +838,7 @@ body.notes-on #notes{display:block}
 
 <!-- ===================== 32 ===================== -->
 <section class="slide" data-title="Os três riscos">
-  <div class="kicker">Bloco 6 · IA em revisão</div>
+  <div class="kicker">Bloco 5 · IA em revisão</div>
   <h1>Os três riscos</h1>
   <div class="body">
     <div class="numbered"><div class="n">1</div><div>
@@ -854,13 +858,66 @@ body.notes-on #notes{display:block}
   <div class="notes" hidden></div>
 </section>
 
+<!-- ===================== 32-A ===================== -->
+<section class="slide" data-title="A IA errando, ao vivo">
+  <div class="kicker">Bloco 5 · IA em revisão</div>
+  <h1>A IA errando, ao vivo</h1>
+  <div class="body">
+    <p><strong>Saída de IA, item 9</strong> — gerada sobre este mesmo código:</p>
+    <div class="quote">A função <code>_adicionar_lista_espera</code> insere o registro mas <strong>não faz commit</strong> da transação, então a inserção é perdida.</div>
+    <p class="punch" style="margin-top:.4em">Abra <code>matricula.py</code>, linha 81. O commit está lá.</p>
+    <p>A IA não errou o julgamento. Ela <strong>descreveu um código que não existe</strong> — com a mesma confiança, o mesmo tom e a mesma formatação dos achados que estavam certos.</p>
+    <div class="quote"><strong>Não há sinal no texto que distinga o achado verdadeiro do inventado.</strong> O único filtro é alguém abrir o arquivo.</div>
+  </div>
+  <div class="notes" hidden>Projete o item e o código lado a lado. Deixe a turma achar a linha 81 sozinha — 20 segundos de silêncio valem mais que a explicação. Só depois diga a frase em destaque.</div>
+</section>
+
+<!-- ===================== 32-B ===================== -->
+<section class="slide" data-title="A IA pode ser o moderador de uma revisão?">
+  <div class="kicker">Bloco 5 · IA em revisão · participação</div>
+  <h1>💡 A IA pode ser o <em>moderador</em> de uma revisão?</h1>
+  <div class="body">
+    <table>
+      <thead><tr><th>Papel</th><th>A IA consegue?</th><th>Por quê</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Revisor</strong></td><td>sim, parcialmente</td><td>produz achado; é o que ela faz</td></tr>
+        <tr><td><strong>Leitor</strong></td><td>sim</td><td>percorre o artefato em ordem, sem pular</td></tr>
+        <tr><td><strong>Escriba</strong></td><td>sim</td><td>registra e formata bem</td></tr>
+        <tr><td><strong>Autor</strong></td><td>não</td><td>não teve intenção; não pode explicar a sua</td></tr>
+        <tr><td><strong>Moderador</strong></td><td><strong>não</strong></td><td>é o único papel que <strong>não produz achado</strong> — ele responde pelo <strong>processo</strong>, decide quando a revisão termina e <strong>presta contas</strong> do resultado</td></tr>
+      </tbody>
+    </table>
+    <p class="punch">Um modelo não pode responder por um processo. Pode preencher todos os papéis que produzem texto, e nenhum dos que produzem responsabilidade.</p>
+  </div>
+  <div class="notes" hidden>Deixe a turma responder antes de abrir a tabela. Alguém vai dizer "sim, ela organiza bem" — aí você pergunta: "e quando der errado, quem responde?". Volte ao slide 22, dos papéis.</div>
+</section>
+
+<!-- ===================== 32-C ===================== -->
+<section class="slide" data-title="Quem revisa o revisor">
+  <div class="kicker">Bloco 5 · IA em revisão</div>
+  <h1>Quem revisa o revisor</h1>
+  <div class="body">
+    <p class="punch" style="margin-top:0">A revisão assistida não elimina trabalho: ela <strong>desloca</strong> o trabalho.</p>
+    <pre style="font-size:.8em;line-height:1.5">   Sem IA  →  ler o código  →  achar  →  registrar
+
+   Com IA  →  escrever o prompt  →  ler a saída  →  <strong>VERIFICAR cada item</strong>  →  registrar
+                                                    └── é aqui que mora o custo real</pre>
+    <ul>
+      <li>Achado não verificado no código <strong>não é achado</strong> — é um palpite com formatação boa.</li>
+      <li>Verificar exige saber revisar. <strong>Uma equipe que nunca revisou não sabe quando a IA está errada</strong> — e é exatamente ela que mais confia na saída.</li>
+      <li>O tempo de triagem é parte do custo do método. Quem não conta esse tempo acha que a revisão assistida é grátis.</li>
+    </ul>
+  </div>
+  <div class="notes" hidden>Avise: "daqui a vinte minutos, dois grupos desta sala vão viver isso. Prestem atenção no que eles disserem sobre quanto tempo gastaram conferindo a IA." É o gancho direto para a revelação G4 vs G7 no fim da aula.</div>
+</section>
+
 <!-- ===================== 33 — ÂNCORA ===================== -->
 <section class="slide anchor" data-title="⭐ Onde estamos, e onde a próxima aula entra" data-anchor="1">
-  <div class="kicker">Bloco 6 · IA em revisão + gancho</div>
+  <div class="kicker">Bloco 5 · IA em revisão + gancho</div>
   <h1><span class="star">⭐</span> Onde estamos, e onde a próxima aula entra</h1>
   <div class="body">
     <svg viewBox="0 0 1200 300" style="width:100%;height:auto;max-height:58%" role="img"
-         aria-label="Espectro com a posição de cada grupo: G1 e G4 em revisão informal, G8 em pair review, G2 em walkthrough, G3 G5 G6 G7 em revisão técnica, e a próxima aula na inspeção formal.">
+         aria-label="Espectro com a posição de cada grupo: G1 e G4 em revisão informal, G2 em walkthrough, G3 G5 G6 G7 em revisão técnica, e a próxima aula na inspeção formal. Pair review aparece no espectro mas não foi praticado pela turma.">
       <defs>
         <marker id="arrow2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
           <path d="M 0 0 L 10 5 L 0 10 z" fill="#16233a"/>
@@ -877,15 +934,14 @@ body.notes-on #notes{display:block}
         </g>
         <line x1="30" y1="88" x2="1168" y2="88" stroke="#16233a" stroke-width="5" marker-end="url(#arrow2)"/>
         <g fill="#0b6e99">
-          <path d="M100 100 l14 26 h-28 z"/><path d="M300 100 l14 26 h-28 z"/><path d="M500 100 l14 26 h-28 z"/>
+          <path d="M100 100 l14 26 h-28 z"/><path d="M500 100 l14 26 h-28 z"/>
           <path d="M700 100 l14 26 h-28 z"/><path d="M900 100 l14 26 h-28 z"/>
         </g>
         <g stroke="#0b6e99" stroke-width="3">
-          <path d="M100 126 L100 168 M300 126 L300 168 M500 126 L500 168 M700 126 L700 168 M900 126 L900 168"/>
+          <path d="M100 126 L100 168 M500 126 L500 168 M700 126 L700 168 M900 126 L900 168"/>
         </g>
         <g text-anchor="middle" font-size="27" font-weight="800" fill="#08506f">
           <text x="100" y="200">G1, G4</text>
-          <text x="300" y="200">G8</text>
           <text x="500" y="200">G2</text>
           <text x="700" y="200">G3, G5, G6, G7</text>
         </g>
@@ -896,7 +952,7 @@ body.notes-on #notes{display:block}
         </g>
       </g>
     </svg>
-    <p><strong>Hoje:</strong> o mapa inteiro — conceitos, tipos, papéis, e a experiência de aplicar cinco pontos diferentes deste espectro.</p>
+    <p><strong>Hoje:</strong> o mapa inteiro — conceitos, tipos, papéis, e a experiência de aplicar cinco pontos diferentes deste espectro. <em>Pair review vocês não praticaram — é o mais comum no mercado e o menos formal de todos.</em></p>
     <p><strong>Próxima aula:</strong> o extremo direito, levado a sério.</p>
   </div>
   <div class="notes" hidden></div>
@@ -909,23 +965,23 @@ body.notes-on #notes{display:block}
   <div class="body">
     <div class="qrgrid">
       <div class="left">
-        <p class="punch" style="margin-top:0">O mesmo PR #142. Oito grupos. Métodos diferentes.</p>
+        <p class="punch" style="margin-top:0">O mesmo PR #1. Sete grupos. Métodos diferentes.</p>
         <ol>
           <li>Cada grupo recebe um <strong>cartão de modo</strong> — não mostre para os outros grupos</li>
           <li><strong>2 min</strong> para distribuir os papéis que o cartão define</li>
           <li><strong>20 min</strong> de revisão, seguindo o cartão à risca</li>
           <li><strong>5 min</strong> para fechar a <strong>ata de revisão</strong> — que é entregue à professora</li>
         </ol>
-        <p><strong>No repositório:</strong> PR #142 (aba <em>Files changed</em>) · <code>docs/RF-014.md</code> · <code>CONTRIBUTING.md</code><br>
+        <p><strong>No repositório:</strong> PR #1 (aba <em>Files changed</em>) · <code>docs/RF-014.md</code> · <code>CONTRIBUTING.md</code><br>
            <strong>Em papel:</strong> cartão do modo · ata de revisão</p>
         <p class="callout" style="font-weight:700">Sem conta no GitHub, sem comentar no PR, sem linter e sem IA — exceto os grupos que receberam o cartão de revisão assistida.</p>
       </div>
       <div class="right">
         <div class="qrcap">Aba <em>Files changed</em> do PR</div>
         <div class="qrbox">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37 37"><path stroke="#000" d="M2 2.5h7m3 0h2m2 0h1m1 0h2m4 0h1m3 0h7m-33 1h1m5 0h1m1 0h2m1 0h4m2 0h2m2 0h2m3 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m4 0h1m7 0h2m3 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m1 0h1m4 0h2m2 0h2m2 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m5 0h2m1 0h1m2 0h7m1 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m3 0h1m2 0h2m2 0h2m1 0h2m4 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h1m3 0h1m1 0h1m3 0h3m3 0h1m-25 1h1m5 0h1m1 0h2m2 0h6m1 0h2m4 0h2m2 0h3m-32 1h1m1 0h1m1 0h2m1 0h1m2 0h2m3 0h1m1 0h2m3 0h2m4 0h3m-31 1h1m5 0h2m4 0h1m2 0h2m1 0h1m2 0h1m2 0h1m3 0h1m1 0h2m-32 1h2m2 0h2m2 0h4m2 0h1m1 0h1m1 0h1m5 0h1m1 0h7m-31 1h1m1 0h1m1 0h1m1 0h1m2 0h1m1 0h4m2 0h2m3 0h1m1 0h1m5 0h1m-32 1h2m2 0h1m3 0h4m1 0h1m3 0h2m1 0h3m2 0h2m2 0h3m-33 1h3m1 0h1m1 0h1m1 0h3m3 0h3m1 0h1m1 0h1m1 0h1m1 0h4m1 0h3m-32 1h2m2 0h2m4 0h1m4 0h2m3 0h1m1 0h1m2 0h1m1 0h2m1 0h1m1 0h1m-33 1h5m1 0h1m2 0h7m1 0h1m2 0h1m1 0h4m1 0h2m3 0h1m-31 1h1m1 0h1m2 0h1m1 0h4m2 0h2m3 0h1m2 0h1m2 0h1m2 0h2m1 0h1m-32 1h1m1 0h1m1 0h2m3 0h1m1 0h1m1 0h6m1 0h1m1 0h3m1 0h1m1 0h2m1 0h1m-33 1h4m3 0h2m3 0h1m1 0h3m2 0h2m1 0h1m2 0h1m2 0h4m-32 1h1m3 0h1m1 0h2m2 0h1m2 0h1m2 0h2m1 0h2m1 0h1m1 0h2m2 0h2m2 0h1m-33 1h2m3 0h1m1 0h1m1 0h1m1 0h2m2 0h1m2 0h3m1 0h2m3 0h3m-30 1h1m2 0h4m1 0h2m2 0h2m1 0h2m3 0h1m4 0h1m3 0h3m-32 1h1m2 0h1m4 0h2m1 0h3m2 0h1m2 0h2m1 0h1m2 0h2m2 0h4m-33 1h2m1 0h2m1 0h2m4 0h1m1 0h3m3 0h1m2 0h7m1 0h1m-24 1h2m1 0h2m1 0h6m1 0h1m1 0h2m3 0h1m1 0h1m1 0h1m-33 1h7m6 0h3m1 0h1m2 0h5m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m2 0h3m1 0h1m2 0h1m1 0h1m3 0h3m3 0h4m-32 1h1m1 0h3m1 0h1m3 0h2m1 0h2m2 0h1m1 0h1m2 0h1m1 0h6m-30 1h1m1 0h3m1 0h1m2 0h1m1 0h2m1 0h3m1 0h2m1 0h1m1 0h3m1 0h3m1 0h2m-33 1h1m1 0h3m1 0h1m2 0h1m4 0h2m2 0h3m2 0h1m1 0h1m1 0h2m1 0h3m-33 1h1m5 0h1m3 0h1m2 0h4m3 0h1m1 0h2m3 0h4m-31 1h7m1 0h2m2 0h1m1 0h2m1 0h1m1 0h1m2 0h6m3 0h1"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37 37"><path stroke="#000" d="M2 2.5h7m1 0h1m2 0h3m5 0h2m2 0h1m2 0h7m-33 1h1m5 0h1m1 0h2m3 0h1m4 0h1m1 0h5m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m2 0h1m2 0h1m2 0h2m2 0h1m4 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m2 0h2m1 0h4m4 0h1m1 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m3 0h1m1 0h3m2 0h1m1 0h1m2 0h1m3 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m3 0h1m3 0h1m2 0h1m1 0h4m1 0h1m1 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h1m1 0h2m5 0h1m1 0h1m3 0h1m-24 1h1m1 0h2m1 0h3m2 0h1m3 0h1m2 0h2m1 0h3m1 0h1m1 0h1m2 0h1m1 0h2m-23 1h3m1 0h1m1 0h3m1 0h2m1 0h1m2 0h2m1 0h2m1 0h1m-32 1h2m1 0h5m2 0h2m1 0h1m1 0h2m2 0h1m2 0h1m2 0h4m1 0h2m-29 1h2m2 0h1m2 0h4m3 0h2m2 0h1m2 0h3m1 0h1m2 0h1m-31 1h1m2 0h2m4 0h2m2 0h1m1 0h1m4 0h4m2 0h2m1 0h1m-32 1h1m1 0h2m3 0h1m2 0h1m1 0h2m2 0h2m1 0h4m1 0h1m2 0h1m1 0h1m1 0h1m-32 1h7m4 0h1m1 0h1m1 0h2m2 0h3m4 0h1m1 0h2m-27 1h1m1 0h1m2 0h1m1 0h3m3 0h1m4 0h1m3 0h2m3 0h1m-29 1h2m1 0h2m1 0h1m1 0h1m3 0h2m2 0h1m2 0h2m2 0h2m1 0h3m-31 1h2m1 0h1m1 0h1m2 0h8m1 0h4m1 0h5m1 0h2m1 0h2m-32 1h4m1 0h2m1 0h1m1 0h1m3 0h1m4 0h3m1 0h1m1 0h3m1 0h2m-32 1h3m1 0h1m3 0h1m3 0h6m1 0h1m2 0h5m1 0h1m2 0h2m-33 1h1m1 0h1m3 0h2m2 0h1m2 0h6m1 0h2m5 0h1m1 0h4m-33 1h3m2 0h1m3 0h2m1 0h1m2 0h1m2 0h2m1 0h1m1 0h1m2 0h1m2 0h1m2 0h1m-29 1h1m1 0h3m2 0h4m2 0h2m2 0h1m1 0h5m3 0h2m-32 1h1m7 0h2m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m3 0h1m1 0h1m1 0h2m-30 1h1m1 0h1m1 0h4m1 0h1m5 0h1m1 0h1m1 0h1m2 0h1m1 0h5m3 0h1m-25 1h1m2 0h2m2 0h3m1 0h3m2 0h1m3 0h2m-30 1h7m1 0h1m3 0h1m3 0h1m1 0h3m2 0h2m1 0h1m1 0h1m-29 1h1m5 0h1m1 0h1m6 0h1m4 0h2m1 0h2m3 0h5m-33 1h1m1 0h3m1 0h1m5 0h1m1 0h2m2 0h11m1 0h1m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h3m3 0h1m1 0h2m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m6 0h4m3 0h1m3 0h2m1 0h2m-31 1h1m5 0h1m2 0h3m1 0h3m1 0h2m3 0h1m1 0h1m1 0h3m3 0h1m-33 1h7m1 0h2m1 0h4m1 0h3m2 0h1m1 0h1m2 0h1m1 0h1m1 0h1"/></svg>
         </div>
-        <div class="qrurl">github.com/PPrauchner/<br>siga-matricula/pull/1/changes</div>
+        <div class="qrurl">github.com/PPrauchner/<br>siga-matricula/pull/1/files</div>
       </div>
     </div>
   </div>
@@ -963,7 +1019,7 @@ body.notes-on #notes{display:block}
     <p class="small"><em>(slide preenchido AO VIVO — projetar a tabela em branco de <code>A9_quadro_comparativo.md</code>)</em></p>
     <div class="tablewrap">
       <table class="empty">
-        <thead><tr><th>Defeito</th><th class="c">G1</th><th class="c">G2</th><th class="c">G3</th><th class="c">G4</th><th class="c">G5</th><th class="c">G6</th><th class="c">G7</th><th class="c">G8</th></tr></thead>
+        <thead><tr><th>Defeito</th><th class="c">G1</th><th class="c">G2</th><th class="c">G3</th><th class="c">G4</th><th class="c">G5</th><th class="c">G6</th><th class="c">G7</th></tr></thead>
         <tbody>
           <tr><td><strong>D01 … D12</strong></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
         </tbody>
@@ -1087,7 +1143,7 @@ body.notes-on #notes{display:block}
   <div id="footer">
     <span class="title" id="ftitle"></span>
     <span id="clock">00:00</span>
-    <span id="counter">1 / 41</span>
+    <span id="counter">1 / 44</span>
   </div>
 
 </div><!-- /stage -->
