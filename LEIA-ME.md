@@ -1,35 +1,26 @@
 # Aula — Revisão de Software: conceitos, tipos e papéis
 
-**Squad:** [nomes dos 6 integrantes] · **Duração:** 90 min · **Turma:** 8 grupos
+**Squad de 5:** Pietro Mendes Prauchner (A1) · Lorenzo Ponsi Ficher (A2) ·
+Inaurrara Flores Rozado (A3) · Andreus Dean Ferreira Almeida Rodrigues Vargas (A4) ·
+Bruno da Silva Rocha (A5)
+**Data:** terça-feira, 15/09/2026 · **Duração:** 90 min · **Turma:** 7 grupos, 40 alunos
 
 ---
 
-## ⚠️ Antes de qualquer coisa: publicar o repositório
+## ✅ O repositório já está publicado
 
-A turma revisa um **Pull Request real, num repositório público**. Publique com uma linha,
-no PowerShell, dentro de `04_repositorio/`:
+🔗 **github.com/PPrauchner/siga-matricula** · **PR #1 aberto**
 
-```powershell
-.\publicar2.ps1 -Repo <sua-conta>/siga-matricula
-```
+Não é preciso rodar `publicar2.ps1` de novo — o script já foi executado, as duas branches
+estão no remoto e o número do PR foi corrigido em todo o material (era `#142`; o GitHub
+numera a partir de 1).
 
-O script cria o repositório, empurra as duas branches, abre o PR **e já corrige o número
-do PR em todos os slides, no enunciado, nos cartões, no gabarito e no roteiro** — porque
-**o PR não vai ser o #142** (o GitHub numera a partir de 1).
+> ⚠️ **Pendência conhecida:** o README da branch `feature/rf-014-matricula` ainda diz
+> `#142`. A `main` está correta, então quem abre o repositório vê o número certo.
+> O procedimento para limpar a branch está no `R1_ROTEIRO_DA_AULA.md`, seção
+> *Repositório — já feito, só conferir*.
 
-Precisa de `git` e `gh` autenticado:
-
-```powershell
-winget install --id Git.Git
-winget install --id GitHub.cli
-gh auth login
-```
-
-Em Linux/macOS/Git Bash, use `./publicar_repositorio.sh` em vez do `.ps1`.
-O modo manual (4 passos no navegador, sem instalar nada) está em
-`04_repositorio/INSTRUCOES_REPOSITORIO.md`.
-
-**Só imprima os materiais depois disso.**
+**Não fazer merge do PR.**
 
 ---
 
@@ -67,7 +58,7 @@ O modo manual (4 passos no navegador, sem instalar nada) está em
 | Arquivo | O que é | Distribuir para |
 |---|---|---|
 | `02_atividade/A0_ENUNCIADO.md` | Enunciado da atividade | todos os grupos (papel) |
-| `02_atividade/A4_cartoes_modos_de_revisao.md` | 6 cartões de modo + distribuição nos 8 grupos | **1 cartão por grupo** |
+| `02_atividade/A4_cartoes_modos_de_revisao.md` | **6 cartões** de modo + distribuição nos **7 grupos** | **1 cartão por grupo** |
 | `02_atividade/A5_checklist.md` | Checklist de revisão da equipe | só G3 e G6 |
 | `02_atividade/A6_ata_de_revisao.md` | Formulário de ata — **é a entrega dos alunos** | todos os grupos (papel) |
 | `02_atividade/A7_prompts_IA.md` | Prompt genérico (G4) e prompt estruturado (G7) | só G4 e G7 |
@@ -92,8 +83,9 @@ O modo manual (4 passos no navegador, sem instalar nada) está em
 ## A ideia da aula em um parágrafo
 
 A turma revisa **um único Pull Request**, num repositório público real, mas cada um dos
-8 grupos aplica um **tipo diferente de revisão** — informal, walkthrough, revisão técnica
-com checklist, leitura baseada em perspectiva, pair review e revisão assistida por IA.
+7 grupos aplica um **tipo diferente de revisão** — informal, walkthrough, revisão técnica
+com checklist, leitura baseada em perspectiva e revisão assistida por IA (em duas
+variantes de prompt).
 Dentro de cada grupo, todos os integrantes assumem **papéis formais** (moderador, autor,
 leitor, revisor, escriba). Ao final, os resultados vão para um quadro comparativo único,
 e a turma descobre empiricamente o que a teoria afirma: **cada tipo de revisão detecta
@@ -105,6 +97,13 @@ Dois modos são atribuídos a **dois grupos cada**, de propósito:
 - **G3 e G6** (mesmo checklist) expõem a **variabilidade entre revisores**
 - **G4 e G7** (mesma IA, prompts diferentes) expõem que a qualidade da revisão
   assistida depende do **contexto fornecido**, não do modelo
+
+Esses quatro grupos têm **tamanho travado em 6**: comparação pareada com tamanhos
+diferentes deixa de medir o método. Toda falta é absorvida por **G1 e G2** (os grupos
+de 5) — a tabela de degradação está no roteiro, em *Plano de faltas*.
+
+**Pair review saiu da atividade** (a turma tem 7 grupos, não 8), mas continua nos slides
+como eixo ortogonal do espectro. O A2 menciona isso em voz alta no bloco de tipos.
 
 ## Por que repositório e não papel
 
